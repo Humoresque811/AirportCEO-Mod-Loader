@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "jqDMD9yKGGN6UiZKOaKEkQlxq5UZWQh+H97FsiRMOBQFw8UDuazxqX3FkYCrSfoehnFhTgD+MAwt6Yeh5UkE3A==",
+  "success": true,
+  "projectFilePath": "C:\\My Stuff\\Airport CEO Mod Loader\\Mod Loader\\AirportCEO-Mod-Loader\\Installer\\Source\\AirportCEO Mod Loader Installer\\AirportCEO Mod Loader Installer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\zsolt\\.nuget\\packages\\csfml\\2.5.2\\csfml.2.5.2.nupkg.sha512",
+    "C:\\Users\\zsolt\\.nuget\\packages\\sfml.graphics\\2.5.1\\sfml.graphics.2.5.1.nupkg.sha512",
+    "C:\\Users\\zsolt\\.nuget\\packages\\sfml.system\\2.5.1\\sfml.system.2.5.1.nupkg.sha512",
+    "C:\\Users\\zsolt\\.nuget\\packages\\sfml.window\\2.5.1\\sfml.window.2.5.1.nupkg.sha512"
+  ],
+  "logs": []
+}

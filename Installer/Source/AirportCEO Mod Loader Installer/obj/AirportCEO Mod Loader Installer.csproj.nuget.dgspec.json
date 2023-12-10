@@ -1,0 +1,73 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\My Stuff\\Airport CEO Mod Loader\\Mod Loader\\AirportCEO-Mod-Loader\\Installer\\Source\\AirportCEO Mod Loader Installer\\AirportCEO Mod Loader Installer.csproj": {}
+  },
+  "projects": {
+    "C:\\My Stuff\\Airport CEO Mod Loader\\Mod Loader\\AirportCEO-Mod-Loader\\Installer\\Source\\AirportCEO Mod Loader Installer\\AirportCEO Mod Loader Installer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\My Stuff\\Airport CEO Mod Loader\\Mod Loader\\AirportCEO-Mod-Loader\\Installer\\Source\\AirportCEO Mod Loader Installer\\AirportCEO Mod Loader Installer.csproj",
+        "projectName": "AirportCEO Mod Loader Installer",
+        "projectPath": "C:\\My Stuff\\Airport CEO Mod Loader\\Mod Loader\\AirportCEO-Mod-Loader\\Installer\\Source\\AirportCEO Mod Loader Installer\\AirportCEO Mod Loader Installer.csproj",
+        "packagesPath": "C:\\Users\\zsolt\\.nuget\\packages\\",
+        "outputPath": "C:\\My Stuff\\Airport CEO Mod Loader\\Mod Loader\\AirportCEO-Mod-Loader\\Installer\\Source\\AirportCEO Mod Loader Installer\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\zsolt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "SFML.Graphics": {
+              "target": "Package",
+              "version": "[2.5.1, )"
+            },
+            "SFML.Window": {
+              "target": "Package",
+              "version": "[2.5.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
