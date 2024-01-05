@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AirportCEO Mod Loader Installer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d8ed6c95db9a4c0f57877be28e29e79e99144a37")]
 [assembly: System.Reflection.AssemblyProductAttribute("AirportCEO Mod Loader Installer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AirportCEO Mod Loader Installer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

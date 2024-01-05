@@ -72,7 +72,7 @@ namespace AirportCEO_Mod_Loader_Installer
             movingText = CreateText("Moving/Installing mod loader...");
             successText = CreateText("Mod Loader installed successfully!\nYou may close this window, and enjoy.");
             failureText = CreateText("Finding folder unsuccessful.\nPlease see \"ManualInstallationInstructions.txt\".\n" +
-                "(If you are on a mac, auto installation is not availibe)");
+                "(If you are on a mac, auto installation is not available)");
         }
         void Close(object? sender, EventArgs? eventArgs)
         {

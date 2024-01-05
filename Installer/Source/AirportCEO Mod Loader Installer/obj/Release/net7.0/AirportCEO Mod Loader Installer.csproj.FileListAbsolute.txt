@@ -185,3 +185,4 @@ C:\My Stuff\Airport CEO Mod Loader\Mod Loader\AirportCEO-Mod-Loader\Installer\So
 C:\My Stuff\Airport CEO Mod Loader\Mod Loader\AirportCEO-Mod-Loader\Installer\Source\AirportCEO Mod Loader Installer\obj\Release\net7.0\AirportCEO Mod Loader Installer.pdb
 C:\My Stuff\Airport CEO Mod Loader\Mod Loader\AirportCEO-Mod-Loader\Installer\Source\AirportCEO Mod Loader Installer\obj\Release\net7.0\AirportCEO Mod Loader Installer.genruntimeconfig.cache
 C:\My Stuff\Airport CEO Mod Loader\Mod Loader\AirportCEO-Mod-Loader\Installer\Source\AirportCEO Mod Loader Installer\obj\Release\net7.0\ref\AirportCEO Mod Loader Installer.dll
+C:\My Stuff\Airport CEO Mod Loader\Mod Loader\AirportCEO-Mod-Loader\Installer\Source\AirportCEO Mod Loader Installer\obj\Release\net7.0\AirportCEO Mod Loader Installer.sourcelink.json
