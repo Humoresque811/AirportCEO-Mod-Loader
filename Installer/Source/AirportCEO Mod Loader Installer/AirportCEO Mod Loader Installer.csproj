@@ -6,7 +6,12 @@
     <RootNamespace>AirportCEO_Mod_Loader_Installer</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <ApplicationIcon>Sprite64.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Sprite64.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="SFML.Graphics" Version="2.5.1" />

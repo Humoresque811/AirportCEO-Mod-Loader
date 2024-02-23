@@ -1,14 +1,18 @@
-﻿using BepInEx;
+﻿using AirportCEOModLoader.WatermarkUtils;
+using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using Epic.OnlineServices;
 using HarmonyLib;
+using System;
 
 namespace AirportCEOModLoader;
 
-[BepInPlugin("org.airportceomodloader.humoresque", "AirportCEO Mod Loader", "1.0.0.0")]
+[BepInPlugin("org.airportceomodloader.humoresque", "AirportCEO Mod Loader", Version)]
 public class AirportCEOModLoader : BaseUnityPlugin
 {
+    public const string Version = "1.0.0.0";
+
     // Logging, HarmonyX
     public static ManualLogSource ModLoaderLogger { get; private set; }
     public static Harmony Harmony { get; private set; }
@@ -40,5 +44,10 @@ public class AirportCEOModLoader : BaseUnityPlugin
     {
         stopBugReporting = Config.Bind<bool>("General", "StopBugReports", true, "Prevents you from making bug reports with mods. " +
             "Only report bugs if they occur when mods are NOT installed");
+    }
+
+    private void Start()
+    {
+        WatermarkUtils.WatermarkUtils.Register(new WatermarkInfo("AirportCEOModLoader", Version, false));
     }
 }

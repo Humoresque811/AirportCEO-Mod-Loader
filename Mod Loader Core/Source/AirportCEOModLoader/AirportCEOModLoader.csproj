@@ -21,9 +21,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="ReflectionUtils\" />
     <Folder Include="SaveLoadUtils\" />
-    <Folder Include="WatermarkUtils\" />
     <Folder Include="Performance\" />
   </ItemGroup>
   
@@ -36,6 +34,9 @@
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>lib\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>lib\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

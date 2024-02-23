@@ -24,7 +24,7 @@ public static class WorkshopUtils
     /// <param name="callbackWithPath">The action called when a mod is found with the provided sub folder, with path of mod.</param>
     public static void Register(string subFolderName, Action<string> callbackWithPath)
     {
-        subFoldersToLookFor.Add(subFolderName, callbackWithPath);
+        subFoldersToLookFor.Add(subFolderName, callbackWithPath);   
     }
     
     /// <summary>
