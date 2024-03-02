@@ -32,12 +32,21 @@ public static class EventDispatcher
     [HarmonyPrefix]
     public static void NewGamePatch(SaveLoadGameDataController __instance)
     {
+        if (NewGameStarted == null)
+        {
+            return;
+        }
+
         NewGameStarted(__instance);
     }
     [HarmonyPatch(typeof(SaveLoadGameDataController), "LoadGameDataCoroutine")]
     [HarmonyPrefix]
     public static void LoadGamePatch(SaveLoadGameDataController __instance)
     {
+        if (LoadStarted == null)
+        {
+            return;
+        }
         LoadStarted(__instance);
     }
     [HarmonyPatch(typeof(SaveLoadGameDataController), "LoadGameDataCoroutine", MethodType.Enumerator)]
@@ -49,12 +58,22 @@ public static class EventDispatcher
             return;
         }
 
+        if (EndOfLoad == null)
+        {
+            return;
+        }
+
         EndOfLoad(__instance);
     }
     [HarmonyPatch(typeof(SaveLoadGameDataController), "SaveGameData")]
     [HarmonyPrefix]
     public static void SaveGamePatch(SaveLoadGameDataController __instance)
     {
+        if (SaveStarted == null)
+        {
+            return;
+        }
+
         SaveStarted(__instance);
     }
     [HarmonyPatch(typeof(SaveLoadGameDataController), "SaveGameData", MethodType.Enumerator)]
@@ -62,6 +81,11 @@ public static class EventDispatcher
     public static void SaveGameAfterPatch(SaveLoadGameDataController __instance, ref bool __result)
     {
         if (__result)
+        {
+            return;
+        }
+
+        if (EndOfSave == null)
         {
             return;
         }
