@@ -1,4 +1,5 @@
-﻿using AirportCEOModLoader.WatermarkUtils;
+﻿using AirportCEOModLoader.Core;
+using AirportCEOModLoader.WatermarkUtils;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
@@ -8,10 +9,11 @@ using System;
 
 namespace AirportCEOModLoader;
 
-[BepInPlugin("org.airportceomodloader.humoresque", "AirportCEO Mod Loader", Version)]
+[BepInPlugin("org.airportceomodloader.humoresque", Name, Version)]
 public class AirportCEOModLoader : BaseUnityPlugin
 {
-    public const string Version = "1.0.0.0";
+    public const string Version = "1.0.0";
+    public const string Name = "AirportCEO Mod Loader";
 
     // Logging, HarmonyX
     public static ManualLogSource ModLoaderLogger { get; private set; }
@@ -48,6 +50,6 @@ public class AirportCEOModLoader : BaseUnityPlugin
 
     private void Start()
     {
-        WatermarkUtils.WatermarkUtils.Register(new WatermarkInfo("AirportCEOModLoader", Version, false));
+        WatermarkUtils.WatermarkUtils.Register(new WatermarkInfo(Name, Version, false));
     }
 }

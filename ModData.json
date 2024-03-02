@@ -1,1 +1,11 @@
-{"id":"3520244d-d630-4150-b8c7-8e5ffdd39e33","publishedFileId":3109136766,"name":"Airport CEO Mod Loader Test","description":"A test","author":"Humoresque","version":"1.0","iconFileName":"icon.jpg","modType":"","tags":[""]}
+{
+    "id":"3520244d-d630-4150-b8c7-8e5ffdd39e33",
+    "publishedFileId":3109136766,
+    "name":"AirportCEO Mod Loader",
+    "description":"A test",
+    "author":"Humoresque",
+    "version":"1.0.0",
+    "iconFileName":"icon.jpg",
+    "modType":"",
+    "tags":["AirportCEO Mod Loader"]
+}
