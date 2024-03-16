@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\My Stuff\\Airport CEO Mod Loader\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj": {}
+    "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj": {}
   },
   "projects": {
-    "C:\\My Stuff\\Airport CEO Mod Loader\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj": {
+    "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\My Stuff\\Airport CEO Mod Loader\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj",
+        "projectUniqueName": "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj",
         "projectName": "AirportCEOModLoader",
-        "projectPath": "C:\\My Stuff\\Airport CEO Mod Loader\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj",
+        "projectPath": "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj",
         "packagesPath": "C:\\Users\\zsolt\\.nuget\\packages\\",
-        "outputPath": "C:\\My Stuff\\Airport CEO Mod Loader\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\obj\\",
+        "outputPath": "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\My Stuff\\Airport CEO Mod Loader\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\NuGet.Config",
+          "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\NuGet.Config",
           "C:\\Users\\zsolt\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

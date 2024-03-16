@@ -19,7 +19,6 @@ public class AirportCEOModLoader : BaseUnityPlugin
     public static ManualLogSource ModLoaderLogger { get; private set; }
     public static Harmony Harmony { get; private set; }
 
-
     // Config
     public static ConfigEntry<bool> stopBugReporting { get; private set; }
     public static ConfigEntry<bool> removeMainMenuAircraft { get; private set; }
@@ -41,6 +40,7 @@ public class AirportCEOModLoader : BaseUnityPlugin
         Logger.LogInfo($"{PluginInfo.PLUGIN_GUID} finished setting up config.");
 
         WorkshopUtils.WorkshopUtils.Awake();
+        Performance.PerformanceTests.DoTests();
     }
 
     private void SetUpConfig()

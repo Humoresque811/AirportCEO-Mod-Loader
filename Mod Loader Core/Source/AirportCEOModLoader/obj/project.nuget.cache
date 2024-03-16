@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8SbE5W3Ehup6yHT8IE9psx4mGzdjBGY4C59IKpCR9ezBw3HxEDgp+YNKDgPfZ9LBizmoy2Cx4x7PJkVTwHOI7g==",
+  "dgSpecHash": "o1mgwg/rkLclqDb8pAtdX4Px6VtNpLUSvJrpWTrMf5ge6R5mBQSP74e9Wgqwuctuegslhknm8ThZCYUtOYH6kA==",
   "success": true,
-  "projectFilePath": "C:\\My Stuff\\Airport CEO Mod Loader\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj",
+  "projectFilePath": "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\zsolt\\.nuget\\packages\\bepinex.analyzers\\1.0.8\\bepinex.analyzers.1.0.8.nupkg.sha512",
     "C:\\Users\\zsolt\\.nuget\\packages\\bepinex.baselib\\5.4.20\\bepinex.baselib.5.4.20.nupkg.sha512",
