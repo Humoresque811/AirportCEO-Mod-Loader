@@ -26,7 +26,7 @@ namespace AirportCEOModLoader.WatermarkUtils
                 return string.Concat(_modText, _version);
             }
 
-            return string.Concat(_modText, " v", _version, "\n");
+            return string.Concat(_modText, " v", _version);
         }
     }
 }

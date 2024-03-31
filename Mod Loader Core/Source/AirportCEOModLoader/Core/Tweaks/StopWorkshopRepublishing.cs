@@ -32,7 +32,7 @@ public static class StopWorkshopRepublishing
             }
 
             DialogPanel.Instance.HidePanel();
-            DialogPanel.Instance.ShowMessagePanel("Please do not re-upload mods found on the workshop back to the workshop. " +
+            DialogUtility.QueueDialog("Please do not re-upload mods found on the workshop back to the workshop. " +
                 "This invalidates the amount of time creators put into their mods! If this seems incorrect, please contact Humoresque about how to bypass.");
             return false;
         }

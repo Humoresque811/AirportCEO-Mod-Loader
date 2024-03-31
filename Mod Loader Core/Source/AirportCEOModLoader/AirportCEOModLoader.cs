@@ -45,14 +45,7 @@ public class AirportCEOModLoader : BaseUnityPlugin
         WorkshopUtils.WorkshopUtils.Awake();
         Core.Loading.UpdateManager.Awake();
         Performance.PerformanceTests.DoTests();
-
-        Version versionnew = new Version(Version);
-        ModLoaderLogger.LogInfo("build" + versionnew.Build);
-        ModLoaderLogger.LogInfo("major" + versionnew.Major);
-        ModLoaderLogger.LogInfo("Major Rev" + versionnew.MajorRevision);
-        ModLoaderLogger.LogInfo("Minor" + versionnew.Minor);
-        ModLoaderLogger.LogInfo("Minor Rev" + versionnew.MinorRevision);
-        ModLoaderLogger.LogInfo("Rev" + versionnew.Revision);
+        WatermarkUtils.WatermarkUtils.Awake();
     }
 
     private void SetUpConfig()

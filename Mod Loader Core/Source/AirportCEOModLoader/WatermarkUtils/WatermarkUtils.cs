@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AirportCEOModLoader.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,11 @@ public static class WatermarkUtils
     static List<string> abbrevText = new List<string>();
     static string defaultText = null;
 
+    public static void Awake()
+    {
+        EventDispatcher.EndOfLoad += RegenerateText;
+    }
+
     /// <summary>
     /// Adds the watermark of your mod to the top of the screen. This is not reversible
     /// </summary>
@@ -22,7 +28,6 @@ public static class WatermarkUtils
         if (defaultText == null)
         {
             defaultText = WatermarkUtilsPatches.WatermarkText.text.TrimEnd('\n');
-            WatermarkUtilsPatches.WatermarkText.lineSpacing = 0.5f;
         }
 
         if (watermarkInfo._isAbbreviated)
@@ -37,19 +42,27 @@ public static class WatermarkUtils
         RegenerateText();
     }
 
+    private static void RegenerateText(SaveLoadGameDataController _)
+    {
+        RegenerateText();
+    }
+
     private static void RegenerateText()
     {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.Append(defaultText);
+        stringBuilder.Append(" \n");
 
         foreach (string normalWatermark in normalText)
         {
             stringBuilder.Append(normalWatermark);
+            stringBuilder.Append(" \n");
         }
 
         foreach (string abbrevWatermark in abbrevText)
         {
             stringBuilder.Append(abbrevWatermark);
+            stringBuilder.Append(", ");
         }
 
         WatermarkUtilsPatches.WatermarkText.text = stringBuilder.ToString();

@@ -71,6 +71,7 @@ public static class UpdateManager
         }
 
         AirportCEOModLoader.ModLoaderLogger.LogInfo("Found blacklist.txt! Moving");
+        AirportCEOModLoader.ModLoaderLogger.LogInfo($"Moving from {files[0]}");
 
         try
         {
@@ -79,7 +80,8 @@ public static class UpdateManager
                 return;
             }
 
-            string existingBlacklist = Path.Combine(Paths.ExecutablePath, "blacklist.txt");
+            string existingBlacklist = Path.GetFullPath(Path.Combine(Paths.ExecutablePath, "..", "blacklist.txt"));
+            AirportCEOModLoader.ModLoaderLogger.LogInfo($"Moving to {existingBlacklist}");
             if (File.Exists(existingBlacklist))
             {
                 File.Delete(existingBlacklist);
