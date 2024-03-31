@@ -6,7 +6,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AirportCEOModLoader.Core;
+namespace AirportCEOModLoader.SaveLoadUtils;
 
 [HarmonyPatch]
 public static class EventDispatcher
@@ -22,6 +22,9 @@ public static class EventDispatcher
 
     /// <summary> Called when the games save cycle begins.</summary>
     public static event Action<SaveLoadGameDataController> SaveStarted;
+
+    /// <summary> Called when the games save cycle begins, provides path as well</summary>
+    public static event Action<SaveLoadGameDataController, string> SaveStartedPath;
 
     /// <summary> Called when the games save cycle ends, but before the IEnumerator returns.</summary>
     public static event Action<SaveLoadGameDataController> EndOfSave;
@@ -67,7 +70,7 @@ public static class EventDispatcher
     }
     [HarmonyPatch(typeof(SaveLoadGameDataController), "SaveGameData")]
     [HarmonyPrefix]
-    public static void SaveGamePatch(SaveLoadGameDataController __instance)
+    public static void SaveGamePatch(SaveLoadGameDataController __instance, string savePath)
     {
         if (SaveStarted == null)
         {
@@ -75,6 +78,13 @@ public static class EventDispatcher
         }
 
         SaveStarted(__instance);
+        if (SaveStartedPath == null)
+        {
+            return;
+        }
+
+        SaveStartedPath(__instance, savePath);
+        
     }
     [HarmonyPatch(typeof(SaveLoadGameDataController), "SaveGameData", MethodType.Enumerator)]
     [HarmonyPostfix]

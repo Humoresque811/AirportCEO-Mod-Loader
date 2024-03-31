@@ -1,4 +1,4 @@
-﻿using AirportCEOModLoader.Core;
+﻿using AirportCEOModLoader.SaveLoadUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ public static class WatermarkUtils
     static List<string> abbrevText = new List<string>();
     static string defaultText = null;
 
-    public static void Awake()
+    internal static void Awake()
     {
         EventDispatcher.EndOfLoad += RegenerateText;
     }

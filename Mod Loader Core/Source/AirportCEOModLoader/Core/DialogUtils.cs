@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AirportCEOModLoader.Core;
 
-public static class DialogUtility
+public static class DialogUtils
 {
     private static Queue<string> messages = new Queue<string>();
 

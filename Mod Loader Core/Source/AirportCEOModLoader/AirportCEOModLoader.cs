@@ -46,6 +46,7 @@ public class AirportCEOModLoader : BaseUnityPlugin
         Core.Loading.UpdateManager.Awake();
         Performance.PerformanceTests.DoTests();
         WatermarkUtils.WatermarkUtils.Awake();
+        SaveLoadUtils.SaveLoadUtils.Awake();
     }
 
     private void SetUpConfig()
@@ -63,6 +64,6 @@ public class AirportCEOModLoader : BaseUnityPlugin
 
     private void Update()
     {
-        DialogUtility.UpdateText();
+        DialogUtils.UpdateText();
     }
 }

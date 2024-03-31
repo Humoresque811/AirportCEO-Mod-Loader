@@ -25,7 +25,7 @@ public static class UpdateManager
 
     private static bool modNeededUpdate = false;
      
-    public static void Awake()
+    internal static void Awake()
     {
         WorkshopUtils.WorkshopUtils.Register(PluginFolderName, CheckPluginOnMod);
         //WorkshopUtils.WorkshopUtils.Register(PatcherFolderName, CheckPatcherOnMod);
@@ -91,7 +91,7 @@ public static class UpdateManager
         }
         catch (Exception ex)
         {
-            AirportCEOModLoader.ModLoaderLogger.LogError($"Failed to move new blacklist over. {ExceptionHelper.ProccessException(ex)}");
+            AirportCEOModLoader.ModLoaderLogger.LogError($"Failed to move new blacklist over. {ExceptionUtils.ProccessException(ex)}");
         }
 
         return;

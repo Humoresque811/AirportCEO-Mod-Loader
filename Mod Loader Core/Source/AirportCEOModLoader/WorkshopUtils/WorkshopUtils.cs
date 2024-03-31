@@ -12,7 +12,7 @@ public static class WorkshopUtils
     public static Dictionary<string, Action<string>> subFoldersToLookFor { get; private set; }
     public static WorkshopItemList workshopItems;
 
-    public static void Awake()
+    internal static void Awake()
     {
         subFoldersToLookFor = new Dictionary<string, Action<string>>();
     }

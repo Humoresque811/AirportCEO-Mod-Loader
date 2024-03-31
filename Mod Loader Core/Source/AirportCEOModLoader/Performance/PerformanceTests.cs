@@ -14,7 +14,7 @@ internal class PerformanceTests
 {
     static Stopwatch stopwatch = new Stopwatch();
 
-    public static void DoTests()
+    internal static void DoTests()
     {
         //Vector2 vector2 = new Vector2();
         //Vector2 test1 = Vector2.left;

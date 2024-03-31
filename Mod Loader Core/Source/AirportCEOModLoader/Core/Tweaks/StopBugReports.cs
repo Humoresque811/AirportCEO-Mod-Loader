@@ -19,7 +19,7 @@ public class StopBugReports
             return true;
         }
 
-        DialogUtility.QueueDialog("Please do not report bugs with code based mods enabled! You can report mod bugs to their respective developers on Airport CEO Forum. " +
+        DialogUtils.QueueDialog("Please do not report bugs with code based mods enabled! You can report mod bugs to their respective developers on Airport CEO Forum. " +
             "To report bugs with the game, please disable mods to make sure they are not interfereing.");
         return false;
     }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AirportCEOModLoader.Core;
 
-public static class ExceptionHelper
+public static class ExceptionUtils
 {
     public static string ProccessException(Exception ex)
     {
