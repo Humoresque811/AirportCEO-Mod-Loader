@@ -43,7 +43,7 @@
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>lib\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TextMeshPro">
+    <Reference Include="Unity.TextMeshPro"> 
       <HintPath>lib\Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
@@ -52,7 +52,6 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Airport CEO\BepInEx\plugins"/>
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="C:\My Stuff\Airport CEO Mod Loader\Mod Loader\AirportCEO-Mod-Loader\Mod Loader Core\Windows\BepInEx\plugins" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="C:\My Stuff\Airport CEO Modding\Mod Loader\AirportCEO-Mod-Loader\Mod Loader Core\Windows-Other\BepInEx\plugins"/>
   </Target>
 </Project>

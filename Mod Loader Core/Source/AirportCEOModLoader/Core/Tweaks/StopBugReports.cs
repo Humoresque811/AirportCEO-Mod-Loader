@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HarmonyLib;
 
-namespace AirportCEOModLoader.Core;
+namespace AirportCEOModLoader.Core.Tweaks;
 
 [HarmonyPatch]
 public class StopBugReports

@@ -6,12 +6,14 @@ using BepInEx.Logging;
 using Epic.OnlineServices;
 using HarmonyLib;
 using System;
+using UnityEngine.PlayerLoop;
 
 namespace AirportCEOModLoader;
 
 [BepInPlugin("org.airportceomodloader.humoresque", Name, Version)]
 public class AirportCEOModLoader : BaseUnityPlugin
 {
+    // Major Consts
     public const string Version = "1.0.0";
     public const string Name = "AirportCEO Mod Loader";
 
@@ -22,6 +24,7 @@ public class AirportCEOModLoader : BaseUnityPlugin
     // Config
     public static ConfigEntry<bool> stopBugReporting { get; private set; }
     public static ConfigEntry<bool> removeMainMenuAircraft { get; private set; }
+
     public static bool stopWorkshopRepublishing = true; // Can be turned off via the AirportCEO Dev Tools mod, which requires a some random string to work
 
     private void Awake()
@@ -40,7 +43,16 @@ public class AirportCEOModLoader : BaseUnityPlugin
         Logger.LogInfo($"{PluginInfo.PLUGIN_GUID} finished setting up config.");
 
         WorkshopUtils.WorkshopUtils.Awake();
+        Core.Loading.UpdateManager.Awake();
         Performance.PerformanceTests.DoTests();
+
+        Version versionnew = new Version(Version);
+        ModLoaderLogger.LogInfo("build" + versionnew.Build);
+        ModLoaderLogger.LogInfo("major" + versionnew.Major);
+        ModLoaderLogger.LogInfo("Major Rev" + versionnew.MajorRevision);
+        ModLoaderLogger.LogInfo("Minor" + versionnew.Minor);
+        ModLoaderLogger.LogInfo("Minor Rev" + versionnew.MinorRevision);
+        ModLoaderLogger.LogInfo("Rev" + versionnew.Revision);
     }
 
     private void SetUpConfig()
@@ -54,5 +66,10 @@ public class AirportCEOModLoader : BaseUnityPlugin
     private void Start()
     {
         WatermarkUtils.WatermarkUtils.Register(new WatermarkInfo(Name, Version, false));
+    }
+
+    private void Update()
+    {
+        DialogUtility.UpdateText();
     }
 }

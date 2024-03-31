@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMPro;
 
-namespace AirportCEOModLoader.Core;
+namespace AirportCEOModLoader.Core.Tweaks;
 
 [HarmonyPatch]
 public static class StopWorkshopRepublishing

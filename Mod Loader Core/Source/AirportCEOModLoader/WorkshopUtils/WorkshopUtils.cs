@@ -24,6 +24,11 @@ public static class WorkshopUtils
     /// <param name="callbackWithPath">The action called when a mod is found with the provided sub folder, with path of mod.</param>
     public static void Register(string subFolderName, Action<string> callbackWithPath)
     {
+        if (subFoldersToLookFor.ContainsKey(subFolderName))
+        {
+            subFoldersToLookFor[subFolderName] += callbackWithPath;
+        }
+
         subFoldersToLookFor.Add(subFolderName, callbackWithPath);   
     }
     
@@ -31,13 +36,13 @@ public static class WorkshopUtils
     /// Deregisters a sub folder, if possible
     /// </summary>
     /// <param name="subFolderName">Sub folder to derigister</param>
-    public static void Deregister(string subFolderName)
+    public static void Deregister(string subFolderName, Action<string> callbackWithPath)
     {
         if (!subFoldersToLookFor.ContainsKey(subFolderName))
         {
             return;
         }
-        subFoldersToLookFor.Remove(subFolderName);
+        subFoldersToLookFor[subFolderName] -= callbackWithPath;
     }
 }
 

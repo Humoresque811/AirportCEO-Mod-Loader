@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using HarmonyLib;
 
 namespace AirportCEOModLoader.Performance;
 
+[HarmonyPatch]
 internal class PerformanceTests
 {
     static Stopwatch stopwatch = new Stopwatch();
@@ -33,5 +35,11 @@ internal class PerformanceTests
         //}
         //stopwatch.Stop();
         //AirportCEOModLoader.ModLoaderLogger.LogInfo("Length edit" + stopwatch.ElapsedMilliseconds);
+    }
+
+    [HarmonyPatch(typeof(AssetRenderManager), "RenderSingleDataBuffers")]
+    public static bool Prefix()
+    {
+        return false;
     }
 }
