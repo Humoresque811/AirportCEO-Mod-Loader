@@ -33,10 +33,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="SaveLoadUtils\" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>lib\Assembly-CSharp.dll</HintPath>
     </Reference>
@@ -52,6 +48,6 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="C:\My Stuff\Airport CEO Modding\Mod Loader\AirportCEO-Mod-Loader\Mod Loader Core\Windows-Other\BepInEx\plugins"/>
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="C:\My Stuff\Airport CEO Modding\Mod Loader\AirportCEO-Mod-Loader\Mod Loader Core\Windows-Other\BepInEx\plugins" />
   </Target>
 </Project>

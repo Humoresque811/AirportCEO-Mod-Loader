@@ -15,7 +15,7 @@ public static class SaveLoadUtils
     private static string loadPath;
     private static string savePath;
     private static float gameTimeWhenSaving = 1f;
-
+     
     internal static void Awake()
     {
         EventDispatcher.NewGameStarted += OnLoadStart;
