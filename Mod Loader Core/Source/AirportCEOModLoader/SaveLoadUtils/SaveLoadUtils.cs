@@ -22,9 +22,10 @@ public static class SaveLoadUtils
         EventDispatcher.SaveStartedPath += OnSaveStart;
         EventDispatcher.LoadStarted += LoadProccess;
     }
-    private static void OnLoadStart(SaveLoadGameDataController instance)
+    private static void OnLoadStart(SaveLoadGameDataController instance)    
     {
         loadPath = instance.savePath;
+        AirportCEOModLoader.ModLoaderLogger.LogInfo($"Found loadPath. It is {loadPath}");
     }
     private static void OnSaveStart(SaveLoadGameDataController instance, string path)
     {
@@ -119,6 +120,12 @@ public static class SaveLoadUtils
                 continue;
             }
 
+            if (string.IsNullOrEmpty(saveJSONS[JSONFileName]))
+            {
+                AirportCEOModLoader.ModLoaderLogger.LogError($"A save file (for mod file name \"{JSONFileName}\") is null or empty... Can't save!");
+                continue;
+            }
+
             try
             {
                 Utils.TryWriteFile(saveJSONS[JSONFileName], filePath, out _);
@@ -139,8 +146,13 @@ public static class SaveLoadUtils
         JSONFileNames.Add(JSONFileName);
     }
 
-    private static void LoadProccess(SaveLoadGameDataController _)
+    private static void LoadProccess(SaveLoadGameDataController instance)
     {
+        if (string.IsNullOrEmpty(loadPath))
+        {
+            loadPath = instance.savePath;
+        }
+
         if (!Directory.Exists(loadPath))
         {
             AirportCEOModLoader.ModLoaderLogger.LogError("The save directory does not exist!");
@@ -157,7 +169,7 @@ public static class SaveLoadUtils
             string path = Path.Combine(loadPath, $"{fileName}.json");
             if (!File.Exists(path))
             {
-                AirportCEOModLoader.ModLoaderLogger.LogError($"The {fileName}.json file does not exist. Skipped loading of that JSON file");
+                AirportCEOModLoader.ModLoaderLogger.LogWarning($"The {fileName}.json file does not exist. Skipped loading of that JSON file");
                 continue;
             }
 

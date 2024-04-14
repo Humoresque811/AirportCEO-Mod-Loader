@@ -30,7 +30,7 @@ public static class EventDispatcher
     public static event Action<SaveLoadGameDataController> EndOfSave;
 
     // The ugly stuff below...
-
+    
     [HarmonyPatch(typeof(SaveLoadGameDataController), "StartNewGame")]
     [HarmonyPrefix]
     public static void NewGamePatch(SaveLoadGameDataController __instance)

@@ -1,0 +1,18 @@
+BepInEx 5.4.22
+
+### ⚠️ BepInEx 5 now enters long term support (LTS) mode
+BepInEx 5.4 is the last version of BepInEx 5 with major updates. Any BepInEx 5 releases starting version 5.4 will be minor and only contain fixes along with package version updates. Our main development focus now shifts to implementing BepInEx 6.
+
+For developers: BepInEx 5 source code is now maintained on [`v5-lts`](https://github.com/BepInEx/BepInEx/tree/v5-lts) branch. In turn `master` branch will start hosting BepInEx 6 source. All PRs regarding BepInEx 5 should be targeting that branch instead of `master`.
+
+## What's Changed
+* fix: handle parameter spread for lts version by @Danielduel in https://github.com/BepInEx/BepInEx/pull/496
+* Add TomlTypeConverter for UnityEngine.Rect by @ManlyMarco in https://github.com/BepInEx/BepInEx/pull/510
+* Fix logging "1 plugins to load" instead of "1 plugin to load" by @ManlyMarco in https://github.com/BepInEx/BepInEx/pull/653
+* Make Logger.Listeners and Logger.Sources thread safe by @ManlyMarco in https://github.com/BepInEx/BepInEx/pull/656
+* Fix argument count when launched with Steam on Linux by @zeroepoch in https://github.com/BepInEx/BepInEx/pull/562
+
+## New Contributors
+* @Danielduel made their first contribution in https://github.com/BepInEx/BepInEx/pull/496
+
+**Full Changelog**: https://github.com/BepInEx/BepInEx/compare/v5.4.21...5.4.22
