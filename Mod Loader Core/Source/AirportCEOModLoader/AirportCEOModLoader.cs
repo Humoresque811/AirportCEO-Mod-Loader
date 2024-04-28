@@ -23,7 +23,6 @@ public class AirportCEOModLoader : BaseUnityPlugin
 
     // Config
     public static ConfigEntry<bool> stopBugReporting { get; private set; }
-    public static ConfigEntry<bool> removeMainMenuAircraft { get; private set; }
 
     public static bool stopWorkshopRepublishing = true; // Can be turned off via the AirportCEO Dev Tools mod, which requires a some random string to work
 
@@ -44,7 +43,6 @@ public class AirportCEOModLoader : BaseUnityPlugin
 
         WorkshopUtils.WorkshopUtils.Awake();
         Core.Loading.UpdateManager.Awake();
-        Performance.PerformanceTests.DoTests();
         WatermarkUtils.WatermarkUtils.Awake();
         SaveLoadUtils.SaveLoadUtils.Awake();
     }
@@ -53,8 +51,6 @@ public class AirportCEOModLoader : BaseUnityPlugin
     {
         stopBugReporting = Config.Bind<bool>("General", "StopBugReports", true, "Prevents you from making bug reports with mods. " +
             "Only report bugs if they occur when mods are NOT installed");
-        removeMainMenuAircraft = Config.Bind<bool>("Performance", "Remove Main Menu Aircraft", false, "Removes the decorative aircraft " +
-            "in the main menu, considerably increases main menu performance");
     }
 
     private void Start()

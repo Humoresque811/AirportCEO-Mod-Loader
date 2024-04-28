@@ -44,6 +44,7 @@ public static class SaveLoadUtils
     }
 
     [HarmonyPatch(typeof(SaveLoadGameDataController), "SaveGameData", MethodType.Enumerator)]
+    [HarmonyPrefix]
     public static void SaveProccess(SaveLoadGameDataController __instance, ref bool __result)
     {
         // This makes sure there are no more elements to go through (makes sure its a true postfix!)
@@ -51,6 +52,7 @@ public static class SaveLoadUtils
         {
             return;
         }
+        AirportCEOModLoader.ModLoaderLogger.LogInfo($"Starting save proccess. {saveRegistries.Count} mods registered!");
 
         if (saveRegistries.Count <= 0)
         {
