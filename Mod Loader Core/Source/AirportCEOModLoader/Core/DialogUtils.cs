@@ -23,11 +23,6 @@ public static class DialogUtils
             return;
         }
 
-        if (!SaveLoadGameDataController.loadComplete)
-        {
-            return;
-        }
-
         if (DialogPanel.Instance.isDisplayed)
         {
             return;
