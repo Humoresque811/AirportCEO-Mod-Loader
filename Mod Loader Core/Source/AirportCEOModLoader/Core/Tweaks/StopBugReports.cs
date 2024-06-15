@@ -3,25 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AirportCEOModLoader.SaveLoadUtils;
 using HarmonyLib;
 
 namespace AirportCEOModLoader.Core.Tweaks;
 
-[HarmonyPatch]
 public class StopBugReports
 {
-    [HarmonyPatch(typeof(GameSettingsPanelUI), "ShowIssueReportingPanel")]
-    [HarmonyPrefix]
-    public static bool StopBugReport(GameSettingsPanelUI __instance)
+    internal static void Awake()
     {
-        if (!AirportCEOModLoader.stopBugReporting.Value)
+        EventDispatcher.EndOfLoad += MakeInactive;
+    }
+
+    internal static void MakeInactive(SaveLoadGameDataController _)
+    {
+        if (!AirportCEOModLoader.RestrictMenuActions.Value)
         {
-            return true;
+            return;
         }
 
-        DialogUtils.QueueDialog("Please do not report bugs with code based mods enabled! You can report mod bugs to their respective developers on Airport CEO Forum. " +
-            "To report bugs with the game, please disable mods to make sure they are not interfereing.");
-        return false;
+        GameMenuPanelUI.Instance.reportBugButton.interactable = false;
+        HoverToolTip hoverToolTip = GameMenuPanelUI.Instance.reportBugButton.GetComponent<HoverToolTip>();
+        hoverToolTip.textToDisplay = MLLocalization.Loc("Tooltip_Stop-Bug_Text");
+        hoverToolTip.headerToDisplay = MLLocalization.Loc("Tooltip_Stop-Bug_Header");
     }
 }
 

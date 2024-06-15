@@ -16,9 +16,9 @@ public class WelcomeMessage
     {
         if (AirportCEOModLoader.showWelcomeMessage.Value)
         {
-            DialogUtils.QueueDialog("Thank you for installing the AirportCEO Mod Loader! Configuration for mods can be accessed via the F1 key.");
-            DialogUtils.QueueDialog("Please note that to disable a mod, you must unsubscribe from it. Disabling it will not do anything.");
-            DialogUtils.QueueDialog("This message will not show up again. To show it again, you must renable the option in the configuration.");
+            DialogUtils.QueueDialog(MLLocalization.Loc("Welcome_M1"));
+            DialogUtils.QueueDialog(MLLocalization.Loc("Welcome_M2"));
+            DialogUtils.QueueDialog(MLLocalization.Loc("Welcome_M3"));
             AirportCEOModLoader.showWelcomeMessage.Value = false;
         }
     }

@@ -1,5 +1,4 @@
 ﻿using AirportCEOModLoader.Core;
-using AirportCEOModLoader.Core.Tweaks;
 using AirportCEOModLoader.WatermarkUtils;
 using BepInEx;
 using BepInEx.Configuration;
@@ -23,7 +22,7 @@ public class AirportCEOModLoader : BaseUnityPlugin
     public static Harmony Harmony { get; private set; }
 
     // Config
-    public static ConfigEntry<bool> stopBugReporting { get; private set; }
+    public static ConfigEntry<bool> RestrictMenuActions { get; private set; }
     public static ConfigEntry<bool> showWelcomeMessage { get; private set; }
 
     public static bool stopWorkshopRepublishing = true; // Can be turned off via the AirportCEO Dev Tools mod, which requires a some random string to work
@@ -47,13 +46,14 @@ public class AirportCEOModLoader : BaseUnityPlugin
         Core.Loading.UpdateManager.Awake();
         WatermarkUtils.WatermarkUtils.Awake();
         SaveLoadUtils.SaveLoadUtils.Awake();
+        Core.Tweaks.StopInGameReload.Awake();
+        Core.Tweaks.StopBugReports.Awake();
     }
 
     private void SetUpConfig()
     {
-        stopBugReporting = Config.Bind<bool>("General", "Stop Bug Reports", true, "Prevents you from making bug reports with mods. " +
-            "Only report bugs if they occur when mods are NOT installed");
-        showWelcomeMessage = Config.Bind("General", "Show Welcome Message", true, "Show the welcome message on reload again. This will always be automatically disabled on start.");
+        RestrictMenuActions = Config.Bind("General", "Restrict Menu Actions", true, MLLocalization.Loc("Config_Restrict-Menu-Actions_Desc"));
+        showWelcomeMessage = Config.Bind("General", "Show Welcome Message", true, MLLocalization.Loc("Config_Show-Welcome-Message_Desc"));
     }
 
     private void Start()
@@ -63,6 +63,6 @@ public class AirportCEOModLoader : BaseUnityPlugin
 
     private void Update()
     {
-        DialogUtils.UpdateText();
+        Core.DialogUtils.UpdateText();
     }
 }

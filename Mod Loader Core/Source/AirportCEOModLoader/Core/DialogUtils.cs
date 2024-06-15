@@ -28,7 +28,7 @@ public static class DialogUtils
             return;
         }
 
-        string messageNew = $"[{messages.Count - 1} Messages Left]\n{messages.Dequeue()}";
+        string messageNew = $"[{messages.Count - 1} {MLLocalization.Loc("General_Messages-Left")}]\n{messages.Dequeue()}";
 
         DialogPanel.Instance.ShowMessagePanel(messageNew);
     }

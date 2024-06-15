@@ -4,6 +4,6 @@ namespace AirportCEOModLoader
     {
         public const string PLUGIN_GUID = "AirportCEOModLoader";
         public const string PLUGIN_NAME = "AirportCEOModLoader";
-        public const string PLUGIN_VERSION = "1.0.0";
+        public const string PLUGIN_VERSION = "1.0.1";
     }
 }

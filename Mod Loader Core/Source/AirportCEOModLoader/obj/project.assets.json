@@ -883,7 +883,7 @@
     "C:\\Users\\zsolt\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "restore": {
       "projectUniqueName": "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj",
       "projectName": "AirportCEOModLoader",

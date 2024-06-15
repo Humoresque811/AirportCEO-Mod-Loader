@@ -4,7 +4,7 @@
     <TargetFramework>net46</TargetFramework>
     <AssemblyName>AirportCEOModLoader</AssemblyName>
     <Description>My first plugin</Description>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -33,11 +33,11 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>lib\Assembly-CSharp.dll</HintPath>
-    </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>lib\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>lib\Assembly-CSharp-publicized.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro"> 
       <HintPath>lib\Unity.TextMeshPro.dll</HintPath>
