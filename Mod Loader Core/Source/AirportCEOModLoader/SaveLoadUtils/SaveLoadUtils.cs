@@ -29,6 +29,7 @@ public static class SaveLoadUtils
     }
     private static void OnSaveStart(SaveLoadGameDataController instance, string path)
     {
+        AirportCEOModLoader.ModLoaderLogger.LogInfo($"Got save path! Its \"{path}\"");
         savePath = path;
     }
 
@@ -47,63 +48,78 @@ public static class SaveLoadUtils
     [HarmonyPrefix]
     public static void SaveProccess(SaveLoadGameDataController __instance, ref bool __result)
     {
-        // This makes sure there are no more elements to go through (makes sure its a true postfix!)
-        if (__result)
+        try
         {
+            // This makes sure there are no more elements to go through (makes sure its a true postfix!)
+            if (__result)
+            {
+                return;
+            }
+            SaveLoadUtils.savePath = Path.Combine(Utils.GetDefaultSavePath() + "/", savePath);
+            AirportCEOModLoader.ModLoaderLogger.LogInfo($"Starting save process. {saveRegistries.Count} mods registered!");
+
+            if (saveRegistries.Count <= 0)
+            {
+                return; // nothing to do
+            }
+
+            // Set
+            Singleton<MainInteractionPanelUI>.Instance.EnableDispableSavingTextPanel(true);
+            gameTimeWhenSaving = Singleton<TimeController>.Instance.currentSpeed;
+            PlayerInputController.SetPlayerControlAllowed(false);
+            if (gameTimeWhenSaving != 0f)
+            {
+                Singleton<TimeController>.Instance.TogglePauseTime();
+            }
+
+            // Do
+            int counter = 1;
+            foreach (var key in saveRegistries.Keys)
+            {
+                AirportCEOModLoader.ModLoaderLogger.LogMessage($"Getting JSON File for file \"{key}\" ({counter}/{saveRegistries.Count})");
+                saveJSONS[key] = saveRegistries[key]();
+                AirportCEOModLoader.ModLoaderLogger.LogMessage($"Successfully got JSON File for file \"{key}\" ({counter}/{saveRegistries.Count})");
+                counter++;
+            }
+            CreateAllJSONFiles();
+
+            // Revert
+            if (gameTimeWhenSaving != 0f)
+            {
+                Singleton<TimeController>.Instance.TogglePauseTime();
+            }
+            PlayerInputController.SetPlayerControlAllowed(true);
+            if (gameTimeWhenSaving == 100f)
+            {
+                Singleton<TimeController>.Instance.InvokeSkipToNextDay();
+            }
+            Singleton<MainInteractionPanelUI>.Instance.EnableDispableSavingTextPanel(false);
+        }
+        catch (Exception ex)
+        {
+            AirportCEOModLoader.ModLoaderLogger.LogError($"An general error occurred while trying to save! {ExceptionUtils.ProccessException(ex)}");
             return;
         }
-        AirportCEOModLoader.ModLoaderLogger.LogInfo($"Starting save proccess. {saveRegistries.Count} mods registered!");
-
-        if (saveRegistries.Count <= 0)
-        {
-            return; // nothing to do
-        }
-
-        // Set
-        Singleton<MainInteractionPanelUI>.Instance.EnableDispableSavingTextPanel(true);
-        gameTimeWhenSaving = Singleton<TimeController>.Instance.currentSpeed;
-        PlayerInputController.SetPlayerControlAllowed(false);
-        if (gameTimeWhenSaving != 0f)
-        {
-            Singleton<TimeController>.Instance.TogglePauseTime();
-        }
-
-        foreach (var key in saveRegistries.Keys)
-        {
-            saveJSONS[key] = saveRegistries[key]();
-        }
-        CreateAllJSONFiles();
-
-        // Revert
-        if (gameTimeWhenSaving != 0f)
-        {
-            Singleton<TimeController>.Instance.TogglePauseTime();
-        }
-        PlayerInputController.SetPlayerControlAllowed(true);
-        if (gameTimeWhenSaving == 100f)
-        {
-            Singleton<TimeController>.Instance.InvokeSkipToNextDay();
-        }
-        Singleton<MainInteractionPanelUI>.Instance.EnableDispableSavingTextPanel(false);
     }
 
     private static void CreateAllJSONFiles()
     {
-        if (string.IsNullOrEmpty(savePath))
-        {
-            savePath = Singleton<SaveLoadGameDataController>.Instance.saveName;
-        }
-        if (string.IsNullOrEmpty(savePath))
-        {
-            AirportCEOModLoader.ModLoaderLogger.LogError("No save path availible to creat JSON...");
-            return;
-        }
+        AirportCEOModLoader.ModLoaderLogger.LogMessage($"Starting creation process for {saveJSONS.Count} JSON file(s)");
+        //if (string.IsNullOrEmpty(savePath))
+        //{
+        //    savePath = Singleton<SaveLoadGameDataController>.Instance.saveName;
+        //}
+        //if (string.IsNullOrEmpty(savePath))
+        //{
+        //    AirportCEOModLoader.ModLoaderLogger.LogError("No save path available to create JSON...");
+        //    return;
+        //}
 
         string basepath = Singleton<SaveLoadGameDataController>.Instance.GetUserSavedDataSearchPath();
-        if (!string.Equals(savePath.SafeSubstring(0, 2), "C:"))
-        {
-            savePath = Path.Combine(basepath.Remove(basepath.Length - 1), savePath);
-        }
+        //if (!string.Equals(savePath.SafeSubstring(0, 2), "C:"))
+        //{
+        //    savePath = Path.Combine(basepath.Remove(basepath.Length - 1), savePath);
+        //}
 
         if (!Directory.Exists(savePath))
         {
@@ -111,30 +127,34 @@ public static class SaveLoadUtils
             return;
         }
 
+        int counter = 1;
         foreach (var JSONFileName in saveJSONS.Keys)
         {
-            string filePath = Path.Combine(savePath, $"{JSONFileName}.json");
-            AirportCEOModLoader.ModLoaderLogger.LogInfo($"Saving with full path of \"{filePath}\"");
-
-            if (File.Exists(filePath))
-            {
-                AirportCEOModLoader.ModLoaderLogger.LogError("The save file trying to be created already exists!");
-                continue;
-            }
-
-            if (string.IsNullOrEmpty(saveJSONS[JSONFileName]))
-            {
-                AirportCEOModLoader.ModLoaderLogger.LogError($"A save file (for mod file name \"{JSONFileName}\") is null or empty... Can't save!");
-                continue;
-            }
-
             try
             {
+                string filePath = Path.Combine(savePath, $"{JSONFileName}.json");
+                AirportCEOModLoader.ModLoaderLogger.LogInfo($"Saving JSON file {JSONFileName} ({counter}/{saveJSONS.Count}) with full path of \"{filePath}\"");
+
+                if (string.IsNullOrEmpty(saveJSONS[JSONFileName]))
+                {
+                    AirportCEOModLoader.ModLoaderLogger.LogError($"A save file (for mod file name \"{JSONFileName}\") is null or empty... Can't save!");
+                    counter++;
+                    continue;
+                }
+
+                if (File.Exists(filePath))
+                {
+                    AirportCEOModLoader.ModLoaderLogger.LogInfo("The save file trying to be created already exists! Deleting it!");
+                    File.Delete(filePath);
+                    AirportCEOModLoader.ModLoaderLogger.LogInfo($"Deleted previous file for mod file name \"{JSONFileName}\"");
+                }
+
                 Utils.TryWriteFile(saveJSONS[JSONFileName], filePath, out _);
+                AirportCEOModLoader.ModLoaderLogger.LogInfo($"Saved JSON file {JSONFileName} successfully! ({counter}/{saveJSONS.Count})");
             }
             catch (Exception ex)
             {
-                AirportCEOModLoader.ModLoaderLogger.LogError($"Failed to create JSON file. {ExceptionUtils.ProccessException(ex)}");
+                AirportCEOModLoader.ModLoaderLogger.LogError($"Failed to save the file. Key: {JSONFileName}, {ExceptionUtils.ProccessException(ex)}");
                 continue;
             }
         }

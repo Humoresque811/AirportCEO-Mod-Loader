@@ -72,19 +72,15 @@ public static class EventDispatcher
     [HarmonyPrefix]
     public static void SaveGamePatch(SaveLoadGameDataController __instance, string savePath)
     {
-        if (SaveStarted == null)
+        if (SaveStarted != null)
         {
-            return;
+            SaveStarted(__instance);
         }
-
-        SaveStarted(__instance);
-        if (SaveStartedPath == null)
-        {
-            return;
-        }
-
-        SaveStartedPath(__instance, savePath);
         
+        if (SaveStartedPath != null)
+        {
+            SaveStartedPath(__instance, savePath);
+        }
     }
     [HarmonyPatch(typeof(SaveLoadGameDataController), "SaveGameData", MethodType.Enumerator)]
     [HarmonyPostfix]

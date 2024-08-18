@@ -4,7 +4,7 @@
     <TargetFramework>net46</TargetFramework>
     <AssemblyName>AirportCEOModLoader</AssemblyName>
     <Description>My first plugin</Description>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -49,5 +49,6 @@
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="C:\My Stuff\Airport CEO Modding\Mod Loader\AirportCEO-Mod-Loader\Mod Loader Core\Windows-Other\BepInEx\plugins" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Airport CEO\BepInEx\plugins"/>
   </Target>
 </Project>

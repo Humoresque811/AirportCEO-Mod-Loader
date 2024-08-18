@@ -48,6 +48,7 @@ public class AirportCEOModLoader : BaseUnityPlugin
         SaveLoadUtils.SaveLoadUtils.Awake();
         Core.Tweaks.StopInGameReload.Awake();
         Core.Tweaks.StopBugReports.Awake();
+        Core.ModUIs.ModUIsManager.Awake();
     }
 
     private void SetUpConfig()
