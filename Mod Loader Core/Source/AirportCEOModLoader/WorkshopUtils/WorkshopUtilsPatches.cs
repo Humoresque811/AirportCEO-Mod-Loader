@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using AirportCEOModLoader.Core;
+using HarmonyLib;
 using LapinerTools.Steam.Data;
 using System;
 using System.Collections.Generic;
@@ -16,19 +17,26 @@ public static class WorkshopUtilsPatches
     [HarmonyPostfix]
     public static void GetMods(string path)
     {
-        string[] directories = Directory.GetDirectories(path);
-
-        foreach (var directory in directories)
+        try
         {
-            foreach (var subFolderOption in WorkshopUtils.subFoldersToLookFor.Keys)
-            {
-                if (!directory.SafeSubstring(directory.Length - subFolderOption.Length, directory.Length).Equals(subFolderOption))
-                {
-                    continue;
-                }
+            string[] directories = Directory.GetDirectories(path);
 
-                WorkshopUtils.subFoldersToLookFor[subFolderOption](directory);
+            foreach (var directory in directories)
+            {
+                foreach (var subFolderOption in WorkshopUtils.subFoldersToLookFor.Keys)
+                {
+                    if (!directory.SafeSubstring(directory.Length - subFolderOption.Length, directory.Length).Equals(subFolderOption))
+                    {
+                        continue;
+                    }
+
+                    WorkshopUtils.subFoldersToLookFor[subFolderOption](directory);
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            AirportCEOModLoader.ModLoaderLogger.LogError($"Error occurred in GetMods function. {ExceptionUtils.ProccessException(ex)}");
         }
     }
 

@@ -24,8 +24,10 @@ public class AirportCEOModLoader : BaseUnityPlugin
     // Config
     public static ConfigEntry<bool> RestrictMenuActions { get; private set; }
     public static ConfigEntry<bool> showWelcomeMessage { get; private set; }
+    public static ConfigEntry<string> devKey { get; private set; }
+    public static ConfigEntry<float> additionalUIScaleIncrease { get; private set; }
 
-    public static bool stopWorkshopRepublishing = true; // Can be turned off via the AirportCEO Dev Tools mod, which requires a some random string to work
+    public static bool stopWorkshopRepublishing = true;
 
     private void Awake()
     {
@@ -55,6 +57,24 @@ public class AirportCEOModLoader : BaseUnityPlugin
     {
         RestrictMenuActions = Config.Bind("General", "Restrict Menu Actions", true, MLLocalization.Loc("Config_Restrict-Menu-Actions_Desc"));
         showWelcomeMessage = Config.Bind("General", "Show Welcome Message", true, MLLocalization.Loc("Config_Show-Welcome-Message_Desc"));
+        devKey = Config.Bind("General", "Enter dev key", "", "It does something");
+        devKey.SettingChanged += OnDevKeyUpdate;
+        additionalUIScaleIncrease = Config.Bind("General", "Increase UI Scale", 0f, 
+            new ConfigDescription("Increases UI scale even more on very high res screens", new AcceptableValueRange<float>(0f, 2f)));
+        additionalUIScaleIncrease.SettingChanged += Core.Tweaks.UIRescale.SetNewValue;
+    }
+
+    private void OnDevKeyUpdate(object sender, EventArgs e)
+    {
+        if (devKey.Value.Equals("RandomKey"))
+        {
+            ModLoaderLogger.LogInfo("Disabled workshop republish blocker");
+            stopWorkshopRepublishing = false;
+        }
+        else
+        {
+            stopWorkshopRepublishing = true;
+        }
     }
 
     private void Start()
