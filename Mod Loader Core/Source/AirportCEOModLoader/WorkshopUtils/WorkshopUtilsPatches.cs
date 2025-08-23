@@ -39,7 +39,12 @@ public static class WorkshopUtilsPatches
                         continue;
                     }
 
-                    WorkshopUtils.directoryInfoFound[subFolderOption] = directory;
+                    if (WorkshopUtils.directoryInfoFound.ContainsKey(subFolderOption))
+                    {
+                        WorkshopUtils.directoryInfoFound[subFolderOption].Add(directory);
+                        continue;
+                    }
+                    WorkshopUtils.directoryInfoFound[subFolderOption] = [ directory ];
                 }
             }
         }

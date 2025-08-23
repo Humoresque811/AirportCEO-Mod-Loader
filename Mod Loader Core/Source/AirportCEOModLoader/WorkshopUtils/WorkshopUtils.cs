@@ -17,7 +17,7 @@ public static class WorkshopUtils
 
     public static WorkshopItemList workshopItems;
 
-    internal static Dictionary<string, string> directoryInfoFound = new Dictionary<string, string>();
+    internal static Dictionary<string, List<string>> directoryInfoFound = new Dictionary<string, List<string>>();
 
     internal static void Awake()
     {
@@ -46,7 +46,10 @@ public static class WorkshopUtils
             {
                 foreach (Func<string, IEnumerator> enumerator in subFoldersToLookForCoroutines[subFolderFound])
                 {
-                    yield return AirportCEOModLoader.Instance.StartCoroutine(enumerator(directoryInfoFound[subFolderFound]));
+                    foreach (string directory in directoryInfoFound[subFolderFound])
+                    {
+                        yield return AirportCEOModLoader.Instance.StartCoroutine(enumerator(directory));
+                    }
                 }
             }
 
