@@ -1,6 +1,7 @@
 ﻿using AirportCEOModLoader.SaveLoadUtils;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ public static class WatermarkUtils
 
     internal static void Awake()
     {
-        EventDispatcher.EndOfLoad += RegenerateText;
+        CoroutineEventDispatcher.RegisterToLaunchGamePhase(RegenerateTextCoroutine, CoroutineEventDispatcher.CorountineAttachmentType.Before);
     }
 
     /// <summary>
@@ -47,6 +48,12 @@ public static class WatermarkUtils
         RegenerateText();
     }
 
+    private static IEnumerator RegenerateTextCoroutine()
+    {
+        RegenerateText();
+        yield break;
+    }
+
     private static void RegenerateText()
     {
         StringBuilder stringBuilder = new StringBuilder();
@@ -65,7 +72,7 @@ public static class WatermarkUtils
             stringBuilder.Append(", ");
         }
 
-        WatermarkUtilsPatches.WatermarkText.text = stringBuilder.ToString();
+        WatermarkUtilsPatches.WatermarkText.text = stringBuilder.ToString().TrimEnd([',' , ' ']);
     }
 }
 

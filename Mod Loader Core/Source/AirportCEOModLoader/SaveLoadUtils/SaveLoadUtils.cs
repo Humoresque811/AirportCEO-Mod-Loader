@@ -46,7 +46,7 @@ public static class SaveLoadUtils
 
     [HarmonyPatch(typeof(SaveLoadGameDataController), "SaveGameData", MethodType.Enumerator)]
     [HarmonyPrefix]
-    public static void SaveProccess(SaveLoadGameDataController __instance, ref bool __result)
+    internal static void SaveProccess(SaveLoadGameDataController __instance, ref bool __result)
     {
         try
         {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace AirportCEOModLoader.SaveLoadUtils;
 
@@ -31,9 +32,26 @@ public static class EventDispatcher
 
     // The ugly stuff below...
     
+    internal static void Awake()
+    {
+        CoroutineEventDispatcher.RegisterToLoadGamePhase(OnLoadStarted, CoroutineEventDispatcher.CorountineAttachmentType.Before);
+        CoroutineEventDispatcher.RegisterToLoadGamePhase(OnLoadEnded, CoroutineEventDispatcher.CorountineAttachmentType.After);
+    }
+
+    internal static IEnumerator OnLoadStarted()
+    {
+        LoadStarted(SaveLoadGameDataController.Instance);
+        yield break;
+    }
+    internal static IEnumerator OnLoadEnded()
+    {
+        EndOfLoad(SaveLoadGameDataController.Instance);
+        yield break;
+    }
+
     [HarmonyPatch(typeof(SaveLoadGameDataController), "StartNewGame")]
     [HarmonyPrefix]
-    public static void NewGamePatch(SaveLoadGameDataController __instance)
+    internal static void NewGamePatch(SaveLoadGameDataController __instance)
     {
         if (NewGameStarted == null)
         {
@@ -42,35 +60,35 @@ public static class EventDispatcher
 
         NewGameStarted(__instance);
     }
-    [HarmonyPatch(typeof(SaveLoadGameDataController), "LoadGameDataCoroutine")]
-    [HarmonyPrefix]
-    public static void LoadGamePatch(SaveLoadGameDataController __instance)
-    {
-        if (LoadStarted == null)
-        {
-            return;
-        }
-        LoadStarted(__instance);
-    }
-    [HarmonyPatch(typeof(SaveLoadGameDataController), "LoadGameDataCoroutine", MethodType.Enumerator)]
-    [HarmonyPostfix]
-    public static void LoadGameAfterPatch(SaveLoadGameDataController __instance, ref bool __result)
-    {
-        if (__result)
-        {
-            return;
-        }
+    //[HarmonyPatch(typeof(SaveLoadGameDataController), "LoadGameDataCoroutine")]
+    //[HarmonyPrefix]
+    //internal static void LoadGamePatch(SaveLoadGameDataController __instance)
+    //{
+    //    if (LoadStarted == null)
+    //    {
+    //        return;
+    //    }
+    //    LoadStarted(__instance);
+    //}
+    //[HarmonyPatch(typeof(SaveLoadGameDataController), "LoadGameDataCoroutine", MethodType.Enumerator)]
+    //[HarmonyPostfix]
+    //internal static void LoadGameAfterPatch(SaveLoadGameDataController __instance, ref bool __result)
+    //{
+    //    if (__result)
+    //    {
+    //        return;
+    //    }
 
-        if (EndOfLoad == null)
-        {
-            return;
-        }
+    //    if (EndOfLoad == null)
+    //    {
+    //        return;
+    //    }
 
-        EndOfLoad(__instance);
-    }
+    //    EndOfLoad(__instance);
+    //}
     [HarmonyPatch(typeof(SaveLoadGameDataController), "SaveGameData")]
     [HarmonyPrefix]
-    public static void SaveGamePatch(SaveLoadGameDataController __instance, string savePath)
+    internal static void SaveGamePatch(SaveLoadGameDataController __instance, string savePath)
     {
         if (SaveStarted != null)
         {
@@ -84,7 +102,7 @@ public static class EventDispatcher
     }
     [HarmonyPatch(typeof(SaveLoadGameDataController), "SaveGameData", MethodType.Enumerator)]
     [HarmonyPostfix]
-    public static void SaveGameAfterPatch(SaveLoadGameDataController __instance, ref bool __result)
+    internal static void SaveGameAfterPatch(SaveLoadGameDataController __instance, ref bool __result)
     {
         if (__result)
         {

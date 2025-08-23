@@ -1,4 +1,5 @@
 ﻿using AirportCEOModLoader.Core;
+using AirportCEOModLoader.SaveLoadUtils;
 using AirportCEOModLoader.WatermarkUtils;
 using BepInEx;
 using BepInEx.Configuration;
@@ -6,6 +7,7 @@ using BepInEx.Logging;
 using Epic.OnlineServices;
 using HarmonyLib;
 using System;
+using System.Collections;
 using UnityEngine.PlayerLoop;
 
 namespace AirportCEOModLoader;
@@ -20,6 +22,7 @@ public class AirportCEOModLoader : BaseUnityPlugin
     // Logging, HarmonyX
     public static ManualLogSource ModLoaderLogger { get; private set; }
     public static Harmony Harmony { get; private set; }
+    internal static AirportCEOModLoader Instance { get; private set; }
 
     // Config
     public static ConfigEntry<bool> RestrictMenuActions { get; private set; }
@@ -33,6 +36,7 @@ public class AirportCEOModLoader : BaseUnityPlugin
     {
         // Logging, HarmonyX
         ModLoaderLogger = Logger;
+        Instance = this;
         Harmony = new(PluginInfo.PLUGIN_GUID);
         Harmony.PatchAll();
 
@@ -44,13 +48,15 @@ public class AirportCEOModLoader : BaseUnityPlugin
         SetUpConfig();
         Logger.LogInfo($"{PluginInfo.PLUGIN_GUID} finished setting up config.");
 
+        WatermarkUtils.WatermarkUtils.Awake();
         WorkshopUtils.WorkshopUtils.Awake();
         Core.Loading.UpdateManager.Awake();
-        WatermarkUtils.WatermarkUtils.Awake();
         SaveLoadUtils.SaveLoadUtils.Awake();
         Core.Tweaks.StopInGameReload.Awake();
         Core.Tweaks.StopBugReports.Awake();
         Core.ModUIs.ModUIsManager.Awake();
+        EventDispatcher.Awake();
+        MemoryNotifier.Awake();
     }
 
     private void SetUpConfig()

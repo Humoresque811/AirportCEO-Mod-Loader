@@ -23,7 +23,7 @@ public static class WorkshopUtilsPatches
 
             foreach (var directory in directories)
             {
-                foreach (var subFolderOption in WorkshopUtils.subFoldersToLookFor.Keys)
+                foreach (string subFolderOption in WorkshopUtils.subFoldersToLookFor.Keys)
                 {
                     if (!directory.SafeSubstring(directory.Length - subFolderOption.Length, directory.Length).Equals(subFolderOption))
                     {
@@ -31,6 +31,15 @@ public static class WorkshopUtilsPatches
                     }
 
                     WorkshopUtils.subFoldersToLookFor[subFolderOption](directory);
+                }
+                foreach (string subFolderOption in WorkshopUtils.subFoldersToLookForCoroutines.Keys)
+                {
+                    if (!directory.SafeSubstring(directory.Length - subFolderOption.Length, directory.Length).Equals(subFolderOption))
+                    {
+                        continue;
+                    }
+
+                    WorkshopUtils.directoryInfoFound[subFolderOption] = directory;
                 }
             }
         }
