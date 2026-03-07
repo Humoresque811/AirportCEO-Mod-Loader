@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using Serializers;
 
 namespace AirportCEOModLoader.SaveLoadUtils;
 
 [HarmonyPatch]
 public static class CoroutineEventDispatcher
 {
-    public enum CorountineAttachmentType
+    public enum CoroutineAttachmentType
     {
         Before,
         After,
@@ -27,6 +28,19 @@ public static class CoroutineEventDispatcher
         internal Queue<Func<IEnumerator>> _afterIterationList = new();
     }
 
+    internal static void Awake()
+    {
+        IsGameLoaded = false;
+        RegisterToLaunchGamePhase(UpdateLoadedState, CoroutineAttachmentType.After);
+    }
+
+    private static IEnumerator UpdateLoadedState()
+    {
+        IsGameLoaded = true;
+        yield break;
+    }
+
+    public static bool IsGameLoaded { get; private set; }
 
     private static bool useNewTextUpdater = false;
     public static Action<string, int> GetTextUpdater()
@@ -39,56 +53,56 @@ public static class CoroutineEventDispatcher
         return Singleton<SceneMessagePanelUI>.Instance.SetLoadingText;
     }
 
-    public static void RegisterToWorkshopPhase(Func<IEnumerator> enumerator, CorountineAttachmentType attachmentType)
+    public static void RegisterToWorkshopPhase(Func<IEnumerator> enumerator, CoroutineAttachmentType attachmentType)
     {
         switch (attachmentType)
         {
-            case CorountineAttachmentType.Before:
+            case CoroutineAttachmentType.Before:
                 mainmMenuWrapper._beforeList.Enqueue(enumerator);
                 return;
-            case CorountineAttachmentType.After:
+            case CoroutineAttachmentType.After:
                 mainmMenuWrapper._afterList.Enqueue(enumerator);
                 return;
-            case CorountineAttachmentType.BeforeIteration:
+            case CoroutineAttachmentType.BeforeIteration:
                 mainmMenuWrapper._beforeIterationList.Enqueue(enumerator);
                 return;
-            case CorountineAttachmentType.AfterIteration:
+            case CoroutineAttachmentType.AfterIteration:
                 mainmMenuWrapper._afterIterationList.Enqueue(enumerator);
                 return;
         }
     }
-    public static void RegisterToLaunchGamePhase(Func<IEnumerator> enumerator, CorountineAttachmentType attachmentType)
+    public static void RegisterToLaunchGamePhase(Func<IEnumerator> enumerator, CoroutineAttachmentType attachmentType)
     {
         switch (attachmentType)
         {
-            case CorountineAttachmentType.Before:
+            case CoroutineAttachmentType.Before:
                 launchGameWrapper._beforeList.Enqueue(enumerator);
                 return;
-            case CorountineAttachmentType.After:
+            case CoroutineAttachmentType.After:
                 launchGameWrapper._afterList.Enqueue(enumerator);
                 return;
-            case CorountineAttachmentType.BeforeIteration:
+            case CoroutineAttachmentType.BeforeIteration:
                 launchGameWrapper._beforeIterationList.Enqueue(enumerator);
                 return;
-            case CorountineAttachmentType.AfterIteration:
+            case CoroutineAttachmentType.AfterIteration:
                 launchGameWrapper._afterIterationList.Enqueue(enumerator);
                 return;
         }
     }
-    public static void RegisterToLoadGamePhase(Func<IEnumerator> enumerator, CorountineAttachmentType attachmentType)
+    public static void RegisterToLoadGamePhase(Func<IEnumerator> enumerator, CoroutineAttachmentType attachmentType)
     {
         switch (attachmentType)
         {
-            case CorountineAttachmentType.Before:
+            case CoroutineAttachmentType.Before:
                 loadGameWrapper._beforeList.Enqueue(enumerator);
                 return;
-            case CorountineAttachmentType.After:
+            case CoroutineAttachmentType.After:
                 loadGameWrapper._afterList.Enqueue(enumerator);
                 return;
-            case CorountineAttachmentType.BeforeIteration:
+            case CoroutineAttachmentType.BeforeIteration:
                 loadGameWrapper._beforeIterationList.Enqueue(enumerator);
                 return;
-            case CorountineAttachmentType.AfterIteration:
+            case CoroutineAttachmentType.AfterIteration:
                 loadGameWrapper._afterIterationList.Enqueue(enumerator);
                 return;
         }
@@ -120,6 +134,29 @@ public static class CoroutineEventDispatcher
     internal static void LoadGameOverridePatch(ref IEnumerator __result)
     {
         __result = EnumeratorCreator(loadGameWrapper, __result);
+    }
+
+
+    [HarmonyPatch(typeof(FrontTutorialUI), nameof(FrontTutorialUI.ShowHideFrontTutorialPanel))]
+    [HarmonyPrefix]
+    internal static bool PreventWrongTutorialLoading()
+    {
+        if (!IsGameLoaded && AirportController.Instance.AirportData.currentTutorialBranch > 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    [HarmonyPatch(typeof(FrontTutorialUI), nameof(FrontTutorialUI.StartIntroduction))]
+    [HarmonyPrefix]
+    internal static bool PreventWrongTutorialLoading2()
+    {
+        if (!IsGameLoaded && AirportController.Instance.AirportData.currentTutorialBranch > 0)
+        {
+            return false;
+        }
+        return true;
     }
 
     private static IEnumerator EnumeratorCreator(AttachmentListWrapper attachmentListWrapper, IEnumerator originalEnumerator)

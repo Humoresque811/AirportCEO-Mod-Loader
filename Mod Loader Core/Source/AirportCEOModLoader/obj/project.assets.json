@@ -880,7 +880,8 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\zsolt\\.nuget\\packages\\": {}
+    "C:\\Users\\zsolt\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.4",
@@ -891,9 +892,13 @@
       "packagesPath": "C:\\Users\\zsolt\\.nuget\\packages\\",
       "outputPath": "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\NuGet.Config",
         "C:\\Users\\zsolt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

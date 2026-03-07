@@ -17,7 +17,7 @@ public static class WatermarkUtils
 
     internal static void Awake()
     {
-        CoroutineEventDispatcher.RegisterToLaunchGamePhase(RegenerateTextCoroutine, CoroutineEventDispatcher.CorountineAttachmentType.Before);
+        CoroutineEventDispatcher.RegisterToLaunchGamePhase(RegenerateTextCoroutine, CoroutineEventDispatcher.CoroutineAttachmentType.Before);
     }
 
     /// <summary>

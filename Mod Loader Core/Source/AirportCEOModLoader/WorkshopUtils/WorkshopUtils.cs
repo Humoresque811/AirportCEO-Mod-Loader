@@ -23,7 +23,7 @@ public static class WorkshopUtils
     {
         subFoldersToLookFor = new();
         subFoldersToLookForCoroutines = new();
-        CoroutineEventDispatcher.RegisterToLaunchGamePhase(CallbackToMods, CoroutineEventDispatcher.CorountineAttachmentType.Before);
+        CoroutineEventDispatcher.RegisterToLaunchGamePhase(CallbackToMods, CoroutineEventDispatcher.CoroutineAttachmentType.Before);
     }
 
     internal static IEnumerator CallbackToMods()

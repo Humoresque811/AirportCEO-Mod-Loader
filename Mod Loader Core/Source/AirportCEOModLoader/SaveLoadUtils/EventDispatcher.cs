@@ -34,8 +34,8 @@ public static class EventDispatcher
     
     internal static void Awake()
     {
-        CoroutineEventDispatcher.RegisterToLoadGamePhase(OnLoadStarted, CoroutineEventDispatcher.CorountineAttachmentType.Before);
-        CoroutineEventDispatcher.RegisterToLoadGamePhase(OnLoadEnded, CoroutineEventDispatcher.CorountineAttachmentType.After);
+        CoroutineEventDispatcher.RegisterToLoadGamePhase(OnLoadStarted, CoroutineEventDispatcher.CoroutineAttachmentType.Before);
+        CoroutineEventDispatcher.RegisterToLoadGamePhase(OnLoadEnded, CoroutineEventDispatcher.CoroutineAttachmentType.After);
     }
 
     internal static IEnumerator OnLoadStarted()

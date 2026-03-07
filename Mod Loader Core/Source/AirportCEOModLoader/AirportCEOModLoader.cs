@@ -57,6 +57,7 @@ public class AirportCEOModLoader : BaseUnityPlugin
         Core.ModUIs.ModUIsManager.Awake();
         EventDispatcher.Awake();
         MemoryNotifier.Awake();
+        CoroutineEventDispatcher.Awake();
     }
 
     private void SetUpConfig()
