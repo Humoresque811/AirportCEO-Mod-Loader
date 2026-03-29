@@ -23,21 +23,36 @@ public class ModUIsManager
     internal static GameObject PREFAB_WorkshopContainer;
 
     // Created stuff
-
+    internal static List<string> CBMsAllowingDisabling { get; private set; } = new();
+    
+    public static void AddCBMAllowingDisabling(string id)
+    {
+        CBMsAllowingDisabling.Add(id);
+    }
 
     internal static void Awake()
     {
-        return;
+        if (!AirportCEOModLoader.UpdateModdingMenu.Value)
+        {
+            return;
+        }
 
-        ModsPanel = GameObject.Find("UI").transform.GetChild(3).GetChild(2).GetChild(7).gameObject;
-        SteamModsBox = ModsPanel.transform.GetChild(1).gameObject;
-        TogglesBox = ModsPanel.transform.GetChild(2).gameObject;
+        try
+        {
+            ModsPanel = GameObject.Find("UI").transform.GetChild(3).GetChild(2).GetChild(7).gameObject;
+            SteamModsBox = ModsPanel.transform.GetChild(1).gameObject;
+            TogglesBox = ModsPanel.transform.GetChild(2).gameObject;
 
-        NativeModsPanel = ModsPanel.GetComponent<NativeModsPanel>();
+            NativeModsPanel = ModsPanel.GetComponent<NativeModsPanel>();
 
-        PREFAB_WorkshopContainer = GameObject.Instantiate(NativeModsPanel.workshopContainer);
-        UpdatePrefab();
-        NativeModsPanel.workshopContainer = PREFAB_WorkshopContainer;
+            PREFAB_WorkshopContainer = GameObject.Instantiate(NativeModsPanel.workshopContainer);
+            UpdatePrefab();
+            NativeModsPanel.workshopContainer = PREFAB_WorkshopContainer;
+        }
+        catch (Exception ex)
+        {
+            AirportCEOModLoader.ModLoaderLogger.LogError($"Issue with starting modding menu UI changes. {ExceptionUtils.ProccessException(ex)}");
+        }
     }
 
     internal static void UpdatePrefab()

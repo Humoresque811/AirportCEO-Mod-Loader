@@ -5,13 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace AirportCEOModLoader.Core.ModUIs;
 
 public class ModUIsContainerComp : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public bool IsExpaneded { get; protected set; }
-    public bool IsCBM { get; protected set; }
+    public bool? IsCBM
+    {
+        get
+        {
+            return container?.modData.tags.Contains("Code Based");
+        }
+    }
 
     private WorkshopModContainer container;
 
@@ -23,7 +29,7 @@ public class ModUIsContainerComp : MonoBehaviour, IPointerEnterHandler, IPointer
     public void OnPointerEnter(PointerEventData _)
     {
         ModUIsManager.ExpandMod(container);
-        LocalExpandEvent();
+        TrySetToCodeBased();
     }
 
     public void OnPointerExit(PointerEventData _)
@@ -31,16 +37,21 @@ public class ModUIsContainerComp : MonoBehaviour, IPointerEnterHandler, IPointer
         ModUIsManager.DeExtendMod(container);
     }
 
-    protected void LocalExpandEvent()
+    internal void TrySetToCodeBased()
     {
-        foreach (string tag in container.modData.tags)
+        if (IsCBM == true && !ModUIsManager.CBMsAllowingDisabling.Contains(container.modData.id))
         {
-            AirportCEOModLoader.ModLoaderLogger.LogInfo(tag);
-        }
+            ModManager.ActivateMod(container.modData.id);
+            container.activatedToggle.isOn = true;
 
-        if (container.modData.tags.Contains("Code Based"))
-        {
-            container.activatedToggle.gameObject.SetActive(false);
+            container.activatedToggle.interactable = false;
+            container.activatedToggle.onValueChanged.RemoveAllListeners();
+            container.activatedToggle.transform.GetChild(0).GetComponent<Image>().color = DataPlaceholderColors.Instance.green;
+
+            HoverToolTip toolTip = container.activatedToggle.GetComponent<HoverToolTip>();
+            toolTip.headerToDisplay = "Code Based Mod";
+            toolTip.textToDisplay = "This Code Based Mod cannot simply be disabled. To disable, you must unsubscribe.";
+
         }
     }
 }

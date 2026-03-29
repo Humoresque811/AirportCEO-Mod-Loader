@@ -4,12 +4,12 @@
     <TargetFramework>net46</TargetFramework>
     <AssemblyName>AirportCEOModLoader</AssemblyName>
     <Description>My first plugin</Description>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <SignAssembly>False</SignAssembly>
-    <AssemblyVersion>1.0.4</AssemblyVersion>
-    <FileVersion>1.0.4</FileVersion>
+    <AssemblyVersion>1.0.5</AssemblyVersion>
+    <FileVersion>1.0.5</FileVersion>
     <Copyright>© Humoresque 2025</Copyright>
     <Authors>Humoresque</Authors>
   </PropertyGroup>

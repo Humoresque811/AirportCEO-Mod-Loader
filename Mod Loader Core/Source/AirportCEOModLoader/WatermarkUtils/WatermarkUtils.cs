@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TMPro;
+using UnityEngine;
 
 namespace AirportCEOModLoader.WatermarkUtils;
 
@@ -60,19 +61,28 @@ public static class WatermarkUtils
         stringBuilder.Append(defaultText);
         stringBuilder.Append(" \n");
 
+        for (int i = 0; i < abbrevText.Count; i++)
+        {
+            string abbrevWatermark = abbrevText[i];
+            stringBuilder.Append(abbrevWatermark);
+
+            if (i != abbrevText.Count - 1)
+            {
+                stringBuilder.Append(", ");
+            }
+        }
+        stringBuilder.Append(" \n");
+
         foreach (string normalWatermark in normalText)
         {
             stringBuilder.Append(normalWatermark);
             stringBuilder.Append(" \n");
         }
 
-        foreach (string abbrevWatermark in abbrevText)
-        {
-            stringBuilder.Append(abbrevWatermark);
-            stringBuilder.Append(", ");
-        }
 
         WatermarkUtilsPatches.WatermarkText.text = stringBuilder.ToString().TrimEnd([',' , ' ']);
+        Vector2 oldSizeDelta = WatermarkUtilsPatches.WatermarkText.rectTransform.sizeDelta;
+        WatermarkUtilsPatches.WatermarkText.rectTransform.sizeDelta = new Vector2(oldSizeDelta.x * 2, oldSizeDelta.y);
     }
 }
 

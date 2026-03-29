@@ -14,12 +14,12 @@ public class WelcomeMessage
     [HarmonyPostfix]
     public static void ShowMessages()
     {
-        if (AirportCEOModLoader.showWelcomeMessage.Value)
+        if (AirportCEOModLoader.ShowWelcomeMessage.Value)
         {
             DialogUtils.QueueDialog(MLLocalization.Loc("Welcome_M1"));
             DialogUtils.QueueDialog(MLLocalization.Loc("Welcome_M2"));
             DialogUtils.QueueDialog(MLLocalization.Loc("Welcome_M3"));
-            AirportCEOModLoader.showWelcomeMessage.Value = false;
+            AirportCEOModLoader.ShowWelcomeMessage.Value = false;
         }
     }
 }

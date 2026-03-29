@@ -15,11 +15,11 @@ public class UIRescale
     [HarmonyPostfix]
     public static void ClampPatch(ref float __result)
     {
-        __result = GameSettingManager.GameSettings.uiScaler.Clamp(0.5f, 1f) + AirportCEOModLoader.additionalUIScaleIncrease.Value;
+        __result = GameSettingManager.GameSettings.uiScaler.Clamp(0.5f, 1f) + AirportCEOModLoader.AdditionalUIScaleIncrease.Value;
     }
 
     internal static void SetNewValue(object _, EventArgs __)
     {
-        GameSettingManager.UiScaler = GameSettingManager.GameSettings.uiScaler.Clamp(0.5f, 1f) + AirportCEOModLoader.additionalUIScaleIncrease.Value;
+        GameSettingManager.UiScaler = GameSettingManager.GameSettings.uiScaler.Clamp(0.5f, 1f) + AirportCEOModLoader.AdditionalUIScaleIncrease.Value;
     }
 }
