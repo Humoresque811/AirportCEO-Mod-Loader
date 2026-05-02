@@ -42,6 +42,9 @@ public static class CoroutineEventDispatcher
 
     public static bool IsGameLoaded { get; private set; }
 
+    public static bool IsGameDataDeserialized { get; private set; } = false;
+    public static Action OnGameDataDeserialized { get; set; }
+
     private static bool useNewTextUpdater = false;
     public static Action<string, int> GetTextUpdater()
     {
@@ -136,28 +139,14 @@ public static class CoroutineEventDispatcher
         __result = EnumeratorCreator(loadGameWrapper, __result);
     }
 
-
-    [HarmonyPatch(typeof(FrontTutorialUI), nameof(FrontTutorialUI.ShowHideFrontTutorialPanel))]
-    [HarmonyPrefix]
-    internal static bool PreventWrongTutorialLoading()
+    [HarmonyPatch(typeof(GameDataSerializer), nameof(GameDataSerializer.DeserializeGameData))]
+    [HarmonyPostfix]
+    internal static void UpdateGameDeserialization()
     {
-        if (!IsGameLoaded && AirportController.Instance.AirportData.currentTutorialBranch > 0)
-        {
-            return false;
-        }
-        return true;
+        IsGameDataDeserialized = true;
+        OnGameDataDeserialized();
     }
 
-    [HarmonyPatch(typeof(FrontTutorialUI), nameof(FrontTutorialUI.StartIntroduction))]
-    [HarmonyPrefix]
-    internal static bool PreventWrongTutorialLoading2()
-    {
-        if (!IsGameLoaded && AirportController.Instance.AirportData.currentTutorialBranch > 0)
-        {
-            return false;
-        }
-        return true;
-    }
 
     private static IEnumerator EnumeratorCreator(AttachmentListWrapper attachmentListWrapper, IEnumerator originalEnumerator)
     {

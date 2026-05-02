@@ -32,6 +32,7 @@
         },
         "frameworks": {
           "net46": {
+            "framework": "net46",
             "targetAlias": "net46",
             "projectReferences": {}
           }
@@ -49,6 +50,7 @@
       },
       "frameworks": {
         "net46": {
+          "framework": "net46",
           "targetAlias": "net46",
           "dependencies": {
             "BepInEx.Analyzers": {
