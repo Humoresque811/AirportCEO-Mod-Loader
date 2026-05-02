@@ -884,7 +884,7 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "1.0.5",
+    "version": "1.0.6",
     "restore": {
       "projectUniqueName": "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj",
       "projectName": "AirportCEOModLoader",
@@ -911,6 +911,7 @@
       },
       "frameworks": {
         "net46": {
+          "framework": "net46",
           "targetAlias": "net46",
           "projectReferences": {}
         }
@@ -928,6 +929,7 @@
     },
     "frameworks": {
       "net46": {
+        "framework": "net46",
         "targetAlias": "net46",
         "dependencies": {
           "BepInEx.Analyzers": {
