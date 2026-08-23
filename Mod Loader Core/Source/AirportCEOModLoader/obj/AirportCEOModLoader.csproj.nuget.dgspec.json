@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj": {}
+    "C:\\Users\\guusd\\source\\repos\\ghpdohmen\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj": {}
   },
   "projects": {
-    "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj": {
+    "C:\\Users\\guusd\\source\\repos\\ghpdohmen\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj": {
       "version": "1.0.6",
       "restore": {
-        "projectUniqueName": "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj",
+        "projectUniqueName": "C:\\Users\\guusd\\source\\repos\\ghpdohmen\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj",
         "projectName": "AirportCEOModLoader",
-        "projectPath": "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj",
-        "packagesPath": "C:\\Users\\zsolt\\.nuget\\packages\\",
-        "outputPath": "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\obj\\",
+        "projectPath": "C:\\Users\\guusd\\source\\repos\\ghpdohmen\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\AirportCEOModLoader.csproj",
+        "packagesPath": "C:\\Users\\guusd\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\guusd\\source\\repos\\ghpdohmen\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\My Stuff\\Airport CEO Modding\\Mod Loader\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\NuGet.Config",
-          "C:\\Users\\zsolt\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\guusd\\source\\repos\\ghpdohmen\\AirportCEO-Mod-Loader\\Mod Loader Core\\Source\\AirportCEOModLoader\\NuGet.Config",
+          "C:\\Users\\guusd\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -77,7 +73,7 @@
               "version": "[2019.4.40, )"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.311\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.410\\RuntimeIdentifierGraph.json"
         }
       }
     }
