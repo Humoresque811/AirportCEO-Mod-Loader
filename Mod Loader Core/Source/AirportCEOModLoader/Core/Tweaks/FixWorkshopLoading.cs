@@ -2,6 +2,7 @@
 using LapinerTools.Steam.Data;
 using Steamworks;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,10 +20,17 @@ static class FixWorkshopLoading
     static uint page = 1U; // 1-indexed so initilize as 1                // 
     static WorkshopItemList workshopItemList = new WorkshopItemList();   // OnAvailableItemsCallCompleted is iterated now, so this all needs to be external
 
+    const float QueryTimeoutSeconds = 30f;
+    static int queryRun = 0;
+    static bool queryFinished = false;
+
     [HarmonyPatch("InitializeWorkshop")]
     [HarmonyPrefix]
     public static bool Patch_InitializeWorkshop()          // replace InitilizeWorkshop() with InitilizeWorkshopAtPage(1U)
     {
+        queryFinished = false;
+        queryRun++;
+        AirportCEOModLoader.Instance.StartCoroutine(WaitForWorkshopQuery(queryRun));
         InitilizeWorkshopAtPage(1U);
         return false;
     }
@@ -45,6 +53,10 @@ static class FixWorkshopLoading
 
     private static void OnAvailableItemsCallCompleted(SteamUGCQueryCompleted_t p_callback, bool p_bIOFailure)
     {
+        if (queryFinished)
+        {
+            return;
+        }
         //WorkshopItemList workshopItemList = new WorkshopItemList()      //
         //{                                                               //
         //    PagesItems = SteamWorkshopManager.GetPageCount(p_callback)  // Is this important?
@@ -71,7 +83,59 @@ static class FixWorkshopLoading
         }
         else   // else this is the last page
         {
+            queryFinished = true;
             ModManager.InitalizeSteamWorkshopMods(workshopItemList); //now external, so contains all pages
         }
+    }
+
+    private static IEnumerator WaitForWorkshopQuery(int run)
+    {
+        float start = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - start < QueryTimeoutSeconds)
+        {
+            if (queryFinished || run != queryRun)
+            {
+                yield break;
+            }
+            yield return null;
+        }
+        if (queryFinished || run != queryRun)
+        {
+            yield break;
+        }
+        queryFinished = true;
+        WorkshopItemList installedItems = GetInstalledWorkshopItems();
+        AirportCEOModLoader.ModLoaderLogger.LogWarning($"Steam did not send the subscribed workshop items within {QueryTimeoutSeconds} seconds. Loading {installedItems.Items.Count} installed workshop items from disk instead.");
+        ModManager.InitalizeSteamWorkshopMods(installedItems);
+    }
+
+    private static WorkshopItemList GetInstalledWorkshopItems()
+    {
+        WorkshopItemList installedItems = new WorkshopItemList();
+        try
+        {
+            uint count = SteamUGC.GetNumSubscribedItems();
+            PublishedFileId_t[] ids = new PublishedFileId_t[count];
+            count = Math.Min(count, SteamUGC.GetSubscribedItems(ids, count));
+            for (uint i = 0U; i < count; i++)
+            {
+                if (SteamUGC.GetItemInstallInfo(ids[i], out ulong _, out string folder, 1024U, out uint _) && !string.IsNullOrEmpty(folder))
+                {
+                    installedItems.Items.Add(new WorkshopItem
+                    {
+                        SteamNative = new WorkshopItem.SteamNativeData(ids[i]),
+                        Name = "",
+                        IsSubscribed = true,
+                        IsInstalled = true,
+                        InstalledLocalFolder = folder
+                    });
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            AirportCEOModLoader.ModLoaderLogger.LogError("Could not read the installed workshop items. " + ExceptionUtils.ProccessException(ex));
+        }
+        return installedItems;
     }
 }
