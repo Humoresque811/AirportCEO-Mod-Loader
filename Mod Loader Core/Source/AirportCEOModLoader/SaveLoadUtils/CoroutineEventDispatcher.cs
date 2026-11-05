@@ -62,6 +62,14 @@ public static class CoroutineEventDispatcher
         yield break;
     }
 
+    internal static void ResetForMainMenu()
+    {
+        IsGameLoaded = false;
+        IsGameDataDeserialized = false;
+        OnGameDataDeserialized = null;
+        useNewTextUpdater = false;
+    }
+
     public static bool IsGameLoaded { get; private set; }
 
     public static bool IsGameDataDeserialized { get; private set; } = false;

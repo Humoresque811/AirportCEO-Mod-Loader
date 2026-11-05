@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using AirportCEOModLoader.SaveLoadUtils;
 using HarmonyLib;
 
 namespace AirportCEOModLoader.Core.Tweaks;
@@ -22,6 +23,7 @@ internal static class FixMenuReload
     internal static void ForgetPreviousLoad()
     {
         SaveLoadGameDataController.loadComplete = false;
+        CoroutineEventDispatcher.ResetForMainMenu();
     }
 
     [HarmonyPatch(typeof(GameController), "Awake")]
