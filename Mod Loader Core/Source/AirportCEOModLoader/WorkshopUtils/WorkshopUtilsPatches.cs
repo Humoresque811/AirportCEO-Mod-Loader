@@ -54,6 +54,13 @@ public static class WorkshopUtilsPatches
         }
     }
 
+    [HarmonyPatch(typeof(ModManager), nameof(ModManager.ResetLoadedMods))]
+    [HarmonyPostfix]
+    public static void ForgetFoundFolders()
+    {
+        WorkshopUtils.directoryInfoFound.Clear();
+    }
+
     [HarmonyPatch(typeof(ModManager), "InitalizeSteamWorkshopMods")]
     [HarmonyPrefix]
     public static void GetAllWorkshopMods(WorkshopItemList itemList)
