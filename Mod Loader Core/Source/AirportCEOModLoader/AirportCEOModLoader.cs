@@ -58,6 +58,7 @@ public class AirportCEOModLoader : BaseUnityPlugin
         EventDispatcher.Awake();
         MemoryNotifier.Awake();
         CoroutineEventDispatcher.Awake();
+        Core.Tweaks.FixDailyFlightCleanup.Awake();
     }
 
     private void SetUpConfig()
