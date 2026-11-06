@@ -29,6 +29,12 @@ static class FixWorkshopLoading
         
     private static void InitilizeWorkshopAtPage(uint page = 1U)
     {
+        if (page == 1U)
+        {
+            FixWorkshopLoading.page = 1U;
+            workshopItemList = new WorkshopItemList();
+        }
+
         SteamAPICall_t hAPICall =
             SteamUGC.SendQueryUGCRequest(
                 SteamUGC.CreateQueryUserUGCRequest(
