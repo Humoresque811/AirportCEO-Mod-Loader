@@ -41,8 +41,11 @@ public class ModUIsContainerComp : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         if (IsCBM == true && !ModUIsManager.CBMsAllowingDisabling.Contains(container.modData.id))
         {
-            ModManager.ActivateMod(container.modData.id);
             container.activatedToggle.isOn = true;
+            if (!ModManager.IsModActivated(container.modData.id))
+            {
+                ModManager.ActivateMod(container.modData.id);
+            }
 
             container.activatedToggle.interactable = false;
             container.activatedToggle.onValueChanged.RemoveAllListeners();
