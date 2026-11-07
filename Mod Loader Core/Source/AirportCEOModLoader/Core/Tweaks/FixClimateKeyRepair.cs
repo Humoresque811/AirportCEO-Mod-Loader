@@ -25,7 +25,16 @@ internal static class FixClimateKeyRepair
             return false;
         }
 
-        __result = Load(Path.Combine(folder, weatherSourceName + ".json"));
+        try
+        {
+            __result = Load(Path.Combine(folder, weatherSourceName + ".json"));
+        }
+        catch (Exception exception)
+        {
+            UnityEngine.Debug.LogError("[WEATHER] ERROR: Could not load climate data profiles! Stack: " + exception);
+            __result = null;
+        }
+
         return false;
     }
 
@@ -41,10 +50,10 @@ internal static class FixClimateKeyRepair
             return false;
         }
 
+        string[] files = Directory.GetFiles(folder, "*.json");
+        List<WeatherSource[]> sources = new List<WeatherSource[]>(files.Length);
         try
         {
-            string[] files = Directory.GetFiles(folder, "*.json");
-            List<WeatherSource[]> sources = new List<WeatherSource[]>(files.Length);
             for (int i = 0; i < files.Length; i++)
             {
                 sources.Add(Load(files[i]));
@@ -54,7 +63,7 @@ internal static class FixClimateKeyRepair
         }
         catch (Exception exception)
         {
-            UnityEngine.Debug.LogError("[WEATHER] ERROR: Could not load climate data profiles! Stack: " + exception);
+            UnityEngine.Debug.LogError("[WEATHER] ERROR: Could not load climate data files! Stack: " + exception);
             __result = null;
         }
 
@@ -65,18 +74,20 @@ internal static class FixClimateKeyRepair
     {
         try
         {
-            string json = File.ReadAllText(path);
+            string json = Utils.ReadFile(path);
             if (json.Contains(ShippedKey))
             {
                 json = json.Replace(ShippedKey, SerializedKey);
             }
 
-            return Utils.CreateFromJSON<Wrapper<WeatherSource>>(json).array;
+            return Wrapper<WeatherSource>.CreateFromJSON(json).array;
         }
-        catch (Exception exception)
+        catch (ArgumentException exception)
         {
-            UnityEngine.Debug.LogError("[WEATHER] ERROR: Could not load climate data profiles! Stack: " + exception);
-            return null;
+            UnityEngine.Debug.LogError("[JSON DATA LOADER]: Could not load game data. .json not vaild! Path: " + path);
+            UnityEngine.Debug.LogException(exception);
+            DialogPanel.Instance.ShowMessagePanel("[JSON DATA LOADER]: An error occurred while reading game data. JSON not valid. See console for more details.");
+            return new WeatherSource[0];
         }
     }
 }
