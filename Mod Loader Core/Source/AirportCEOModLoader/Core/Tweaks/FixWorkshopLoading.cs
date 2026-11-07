@@ -4,6 +4,7 @@ using Steamworks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,12 +49,13 @@ static class FixWorkshopLoading
                     SteamUtils.GetAppID(),
                     page));// -----------------------------Changed from 1U
 
-        CallResult<SteamUGCQueryCompleted_t>.Create(new CallResult<SteamUGCQueryCompleted_t>.APIDispatchDelegate(OnAvailableItemsCallCompleted)).Set(hAPICall, null);
+        int run = queryRun;
+        CallResult<SteamUGCQueryCompleted_t>.Create((callback, ioFailure) => OnAvailableItemsCallCompleted(callback, ioFailure, run)).Set(hAPICall, null);
     }
 
-    private static void OnAvailableItemsCallCompleted(SteamUGCQueryCompleted_t p_callback, bool p_bIOFailure)
+    private static void OnAvailableItemsCallCompleted(SteamUGCQueryCompleted_t p_callback, bool p_bIOFailure, int run)
     {
-        if (queryFinished)
+        if (queryFinished || run != queryRun)
         {
             return;
         }
@@ -124,7 +126,7 @@ static class FixWorkshopLoading
                     installedItems.Items.Add(new WorkshopItem
                     {
                         SteamNative = new WorkshopItem.SteamNativeData(ids[i]),
-                        Name = "",
+                        Name = GetInstalledItemName(folder),
                         IsSubscribed = true,
                         IsInstalled = true,
                         InstalledLocalFolder = folder
@@ -137,5 +139,22 @@ static class FixWorkshopLoading
             AirportCEOModLoader.ModLoaderLogger.LogError("Could not read the installed workshop items. " + ExceptionUtils.ProccessException(ex));
         }
         return installedItems;
+    }
+
+    private static string GetInstalledItemName(string folder)
+    {
+        string path = Path.Combine(folder, "ModData.json");
+        if (!File.Exists(path))
+        {
+            return "";
+        }
+        try
+        {
+            return Utils.CreateFromJSON<ModData>(Utils.ReadFile(path)).name ?? "";
+        }
+        catch (Exception)
+        {
+            return "";
+        }
     }
 }
