@@ -66,7 +66,6 @@ public static class CoroutineEventDispatcher
     {
         IsGameLoaded = false;
         IsGameDataDeserialized = false;
-        OnGameDataDeserialized = null;
         useNewTextUpdater = false;
     }
 
@@ -174,7 +173,7 @@ public static class CoroutineEventDispatcher
     internal static void UpdateGameDeserialization()
     {
         IsGameDataDeserialized = true;
-        OnGameDataDeserialized();
+        OnGameDataDeserialized?.Invoke();
     }
 
 
