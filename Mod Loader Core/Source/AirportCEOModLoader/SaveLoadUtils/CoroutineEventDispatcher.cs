@@ -26,6 +26,28 @@ public static class CoroutineEventDispatcher
         internal Queue<Func<IEnumerator>> _afterList = new();
         internal Queue<Func<IEnumerator>> _beforeIterationList = new();
         internal Queue<Func<IEnumerator>> _afterIterationList = new();
+
+        internal int RemoveDestroyedOwners()
+        {
+            return RemoveDestroyedOwners(_beforeList) + RemoveDestroyedOwners(_afterList) + RemoveDestroyedOwners(_beforeIterationList) + RemoveDestroyedOwners(_afterIterationList);
+        }
+
+        private static int RemoveDestroyedOwners(Queue<Func<IEnumerator>> queue)
+        {
+            int removed = 0;
+            int count = queue.Count;
+            for (int i = 0; i < count; i++)
+            {
+                Func<IEnumerator> enumerator = queue.Dequeue();
+                if (enumerator.Target is UnityEngine.Object owner && owner == null)
+                {
+                    removed++;
+                    continue;
+                }
+                queue.Enqueue(enumerator);
+            }
+            return removed;
+        }
     }
 
     internal static void Awake()
@@ -38,6 +60,13 @@ public static class CoroutineEventDispatcher
     {
         IsGameLoaded = true;
         yield break;
+    }
+
+    internal static void ResetForMainMenu()
+    {
+        IsGameLoaded = false;
+        IsGameDataDeserialized = false;
+        useNewTextUpdater = false;
     }
 
     public static bool IsGameLoaded { get; private set; }
@@ -144,12 +173,18 @@ public static class CoroutineEventDispatcher
     internal static void UpdateGameDeserialization()
     {
         IsGameDataDeserialized = true;
-        OnGameDataDeserialized();
+        OnGameDataDeserialized?.Invoke();
     }
 
 
     private static IEnumerator EnumeratorCreator(AttachmentListWrapper attachmentListWrapper, IEnumerator originalEnumerator)
     {
+        int removed = attachmentListWrapper.RemoveDestroyedOwners();
+        if (removed > 0)
+        {
+            AirportCEOModLoader.ModLoaderLogger.LogInfo($"Removed {removed} coroutine(s) registered by objects that no longer exist");
+        }
+
         foreach (Func<IEnumerator> beforeEnumerator in attachmentListWrapper._beforeList)
         {
             foreach (Func<IEnumerator> beforeIterationEnumerator in attachmentListWrapper._beforeIterationList)

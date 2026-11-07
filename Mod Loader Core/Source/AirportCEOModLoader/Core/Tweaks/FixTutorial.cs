@@ -26,8 +26,15 @@ internal class FixTutorial
             return true;
         }
 
-        CoroutineEventDispatcher.OnGameDataDeserialized += InitializeTutorialNew;
+        CoroutineEventDispatcher.OnGameDataDeserialized -= InitializeDeferredTutorial;
+        CoroutineEventDispatcher.OnGameDataDeserialized += InitializeDeferredTutorial;
         return false;
+    }
+
+    private static void InitializeDeferredTutorial()
+    {
+        CoroutineEventDispatcher.OnGameDataDeserialized -= InitializeDeferredTutorial;
+        InitializeTutorialNew();
     }
 
     private static void InitializeTutorialNew()
