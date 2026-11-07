@@ -34,7 +34,7 @@ internal static class FixInteractionAvailability
             }
 
             point.OccupyingObjectReferenceID = "";
-            if (!point.isNotOccupiable)
+            if (!point.isNotOccupiable && !IsHeadingToPoint(person, __instance, i))
             {
                 point.hasBeenOccupied = false;
                 UpdateAvailability(__instance, Enums.OperatorType.Add, point);
@@ -42,5 +42,10 @@ internal static class FixInteractionAvailability
         }
 
         return false;
+    }
+
+    private static bool IsHeadingToPoint(PersonController person, InteractionItemModel item, int pointIndex)
+    {
+        return person != null && person.PersonModel.currentInteractionPointIndex == pointIndex && item.ReferenceID.Equals(person.PersonModel.currentInteractionItemReferenceID);
     }
 }
