@@ -16,7 +16,6 @@ namespace AirportCEOModLoader.Core.Tweaks;
 internal static class FixRollingWeather
 {
     private const int VanillaDayIndexGuards = 3;
-    private const int GuardsCorrectedByWindyAndRainFix = 2;
     private const string FailureMessage = "GenerateWeatherDays day index guards did not match the expected pattern. The method was not changed.";
 
     [HarmonyTranspiler]
@@ -25,7 +24,6 @@ internal static class FixRollingWeather
     {
         List<CodeInstruction> source = instructions.ToList();
         List<int> uncorrected = new List<int>();
-        List<int> corrected = new List<int>();
         for (int i = 0; i < source.Count - 1; i++)
         {
             if (source[i].opcode != OpCodes.Ldloc_3)
@@ -36,30 +34,21 @@ internal static class FixRollingWeather
             {
                 uncorrected.Add(i);
             }
-            else if (IsCorrectedZeroTest(source, i))
-            {
-                corrected.Add(i);
-            }
         }
 
         if (uncorrected.Count == 0)
         {
-            if (corrected.Count < VanillaDayIndexGuards)
-            {
-                AirportCEOModLoader.ModLoaderLogger.LogError(FailureMessage);
-            }
             return source;
         }
 
-        bool allVanilla = uncorrected.Count == VanillaDayIndexGuards;
-        bool onlyRemainingTemperature = uncorrected.Count == 1 && corrected.Count >= GuardsCorrectedByWindyAndRainFix;
-        if (!allVanilla && !onlyRemainingTemperature)
+        if (uncorrected.Count > VanillaDayIndexGuards)
         {
             AirportCEOModLoader.ModLoaderLogger.LogError(FailureMessage);
             return source;
         }
 
         HashSet<int> repairs = new HashSet<int>(uncorrected);
+        AirportCEOModLoader.ModLoaderLogger.LogInfo("Rolled forecast days: widened " + repairs.Count + " day index guards.");
         List<CodeInstruction> patched = new List<CodeInstruction>(source.Count + repairs.Count * 4);
         for (int i = 0; i < source.Count; i++)
         {
@@ -73,23 +62,6 @@ internal static class FixRollingWeather
             }
         }
         return patched;
-    }
-
-    private static bool IsCorrectedZeroTest(List<CodeInstruction> source, int index)
-    {
-        if (index + 5 >= source.Count)
-        {
-            return false;
-        }
-        if (source[index + 1].opcode != OpCodes.Ldarg_2 || source[index + 2].opcode != OpCodes.Ldc_I4_0 || source[index + 3].opcode != OpCodes.Ceq || source[index + 4].opcode != OpCodes.Or)
-        {
-            return false;
-        }
-        if (!IsZeroTestBranch(source[index + 5]))
-        {
-            return false;
-        }
-        return Enumerable.Range(index + 1, 5).All(k => source[k].labels.Count == 0);
     }
 
     private static bool IsZeroTestBranch(CodeInstruction instruction)
